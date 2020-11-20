@@ -2,7 +2,7 @@
     "name": "supply-chain-fps",
     "version": "1.0.0",
     "client": {
-        "organization": "${ORG}",
+        "organization": "fps",
         "connection": {
             "timeout": {
                 "peer": {
@@ -12,34 +12,34 @@
         }
     },
     "organizations": {
-        "${ORG}": {
-            "mspid": "${ORGMSP}MSP",
+        "fps": {
+            "mspid": "FpsMSP",
             "peers": [
-                "peer0.${ORG}.example.com"
+                "peer0.fps.example.com"
             ],
             "certificateAuthorities": [
-                "ca.${ORG}.example.com"
+                "ca.fps.example.com"
             ]
         }
     },
     "peers": {
-        "peer0.${ORG}.example.com": {
-            "url": "grpcs://localhost:${P0PORT}",
+        "peer0.fps.example.com": {
+            "url": "grpcs://localhost:7051",
             "tlsCACerts": {
-                "pem": "${PEERPEM}"
+                "pem": ""
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.${ORG}.example.com",
-                "hostnameOverride": "peer0.${ORG}.example.com"
+                "ssl-target-name-override": "peer0.fps.example.com",
+                "hostnameOverride": "peer0.fps.example.com"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.${ORG}.example.com": {
-            "url": "https://localhost:${CAPORT}",
-            "caName": "ca-${ORG}",
+        "ca.fps.example.com": {
+            "url": "https://localhost:7054",
+            "caName": "ca-fps",
             "tlsCACerts": {
-                "pem": "${CAPEM}"
+                "pem": ""
             },
             "httpOptions": {
                 "verify": false

@@ -1,8 +1,8 @@
 {
-    "name": "supply-chain-producer",
+    "name": "supply-chain-fps",
     "version": "1.0.0",
     "client": {
-        "organization": "deliverer",
+        "organization": "depots",
         "connection": {
             "timeout": {
                 "peer": {
@@ -12,32 +12,32 @@
         }
     },
     "organizations": {
-        "deliverer": {
-            "mspid": "DelivererMSP",
+        "depots": {
+            "mspid": "DepotsMSP",
             "peers": [
-                "peer0.deliverer.example.com"
+                "peer0.depots.example.com"
             ],
             "certificateAuthorities": [
-                "ca.deliverer.example.com"
+                "ca.depots.example.com"
             ]
         }
     },
     "peers": {
-        "peer0.deliverer.example.com": {
+        "peer0.depots.example.com": {
             "url": "grpcs://localhost:10051",
             "tlsCACerts": {
                 "pem": "-----BEGIN CERTIFICATE-----\nMIICbTCCAhSgAwIBAgIRAPyNczrUV+NFUjFhTrwDqlcwCgYIKoZIzj0EAwIwgYAx\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMR4wHAYDVQQKExVkZWxpdmVyZXIuZXhhbXBsZS5jb20xJDAiBgNV\nBAMTG3Rsc2NhLmRlbGl2ZXJlci5leGFtcGxlLmNvbTAeFw0yMDExMjAwNjQwMDBa\nFw0zMDExMTgwNjQwMDBaMIGAMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZv\ncm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5jaXNjbzEeMBwGA1UEChMVZGVsaXZlcmVy\nLmV4YW1wbGUuY29tMSQwIgYDVQQDExt0bHNjYS5kZWxpdmVyZXIuZXhhbXBsZS5j\nb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATf7KvoNKBWM+71AoeqP8fm/JdQ\nqLztqIXVUkP+t07HSdw0DGpR35oXMPPJ7emGlML4vShPCb9f5wiM1XSOMw+No20w\nazAOBgNVHQ8BAf8EBAMCAaYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMB\nMA8GA1UdEwEB/wQFMAMBAf8wKQYDVR0OBCIEIFoollUxK+HqbRYDJJjRvjHAV6DT\nv58f/u0ZttIiX56jMAoGCCqGSM49BAMCA0cAMEQCIQD449hu8hJp2GuCcWuMDo2N\nu1SoeBxRcY9PQMADiPHDxAIfGAnX/Bl0YCazpeWm5g2xO+8iEok7M7z5EnU1kXnV\nrg==\n-----END CERTIFICATE-----\n"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.deliverer.example.com",
-                "hostnameOverride": "peer0.deliverer.example.com"
+                "ssl-target-name-override": "peer0.depots.example.com",
+                "hostnameOverride": "peer0.depots.example.com"
             }
         }
     },
     "certificateAuthorities": {
-        "ca.deliverer.example.com": {
+        "ca.depots.example.com": {
             "url": "https://localhost:9054",
-            "caName": "ca-deliverer",
+            "caName": "ca-depots",
             "tlsCACerts": {
                 "pem": "-----BEGIN CERTIFICATE-----\nMIICZTCCAgugAwIBAgIQVIUQ1Uh+N3kD9j5hi1rOIjAKBggqhkjOPQQDAjB9MQsw\nCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy\nYW5jaXNjbzEeMBwGA1UEChMVZGVsaXZlcmVyLmV4YW1wbGUuY29tMSEwHwYDVQQD\nExhjYS5kZWxpdmVyZXIuZXhhbXBsZS5jb20wHhcNMjAxMTIwMDY0MDAwWhcNMzAx\nMTE4MDY0MDAwWjB9MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEW\nMBQGA1UEBxMNU2FuIEZyYW5jaXNjbzEeMBwGA1UEChMVZGVsaXZlcmVyLmV4YW1w\nbGUuY29tMSEwHwYDVQQDExhjYS5kZWxpdmVyZXIuZXhhbXBsZS5jb20wWTATBgcq\nhkjOPQIBBggqhkjOPQMBBwNCAAQ0WRaS5IiDDxeAGy95ksSfVyTUktnx96cbqO9f\nW0xN6y4rE9WrVgXMRhV/39UspPygt2Pri2cqRx6F8RRsdrKuo20wazAOBgNVHQ8B\nAf8EBAMCAaYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMBMA8GA1UdEwEB\n/wQFMAMBAf8wKQYDVR0OBCIEINcbDW225dfsv1sx2Qh42SJ14tFP+6r9bDdSWXRm\nPIJzMAoGCCqGSM49BAMCA0gAMEUCIQDjc6v31LngtEscWp1evCRSzryPhqW6mPWe\n9r82kmiF7gIgYVTh3a7tXqPG1IaH1d8+I6jUGYKD79iXqtj8ktgVpdY=\n-----END CERTIFICATE-----\n"
             },

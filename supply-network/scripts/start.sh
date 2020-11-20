@@ -15,9 +15,9 @@ docker ps
 
 docker exec -it cli ./scripts/channel/createChannel.sh
 
-echo "Joining Deliverer to channel..."
-docker exec -it cli ./scripts/channel/join-peer.sh peer0 deliverer DelivererMSP 10051 1.0
-echo "Joining Manufacturer to channel..."
-docker exec -it cli ./scripts/channel/join-peer.sh peer0 manufacturer ManufacturerMSP 9051 1.0
-echo "Joining Retailer to channel..." 
-docker exec -it cli ./scripts/channel/join-peer.sh peer0 retailer RetailerMSP 11051 1.0
+echo "Joining Depots to channel..."
+docker exec -it cli ./scripts/channel/join-peer.sh peer0 depots DepotsMSP 10051 1.0
+echo "Joining CentralGovernment to channel..."
+docker exec -it cli ./scripts/channel/join-peer.sh peer0 centralgovernment CentralGovernmentMSP 9051 1.0
+echo "Joining FPS to channel..." 
+docker exec -it cli ./scripts/channel/join-peer.sh peer0 fps FPSMSP 11051 1.0

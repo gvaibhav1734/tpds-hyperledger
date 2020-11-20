@@ -20,65 +20,65 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.admin')"
 
-    - &Producer
-        Name: ProducerMSP
-        ID: ProducerMSP
-        MSPDir: crypto-config/peerOrganizations/producer.example.com/msp
+    - &Fps
+        Name: FpsMSP
+        ID: FpsMSP
+        MSPDir: crypto-config/peerOrganizations/fps.example.com/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('ProducerMSP.admin', 'ProducerMSP.peer', 'ProducerMSP.client')"
+                Rule: "OR('FpsMSP.admin', 'FpsMSP.peer', 'FpsMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('ProducerMSP.admin', 'ProducerMSP.client')"
+                Rule: "OR('FpsMSP.admin', 'FpsMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('ProducerMSP.admin')"
+                Rule: "OR('FpsMSP.admin')"
 
-    - &Manufacturer
-        Name: ManufacturerMSP
-        ID: ManufacturerMSP
-        MSPDir: crypto-config/peerOrganizations/manufacturer.example.com/msp
+    - &CentralGovernment
+        Name: CentralGovernmentMSP
+        ID: CentralGovernmentMSP
+        MSPDir: crypto-config/peerOrganizations/centralgovernment.example.com/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('ManufacturerMSP.admin', 'ManufacturerMSP.peer', 'ManufacturerMSP.client')"
+                Rule: "OR('CentralGovernmentMSP.admin', 'CentralGovernmentMSP.peer', 'CentralGovernmentMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('ManufacturerMSP.admin', 'ManufacturerMSP.client')"
+                Rule: "OR('CentralGovernmentMSP.admin', 'CentralGovernmentMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('ManufacturerMSP.admin')"
+                Rule: "OR('CentralGovernmentMSP.admin')"
                 
-    - &Deliverer
-        Name: DelivererMSP
-        ID: DelivererMSP
-        MSPDir: crypto-config/peerOrganizations/deliverer.example.com/msp
+    - &Depots
+        Name: DepotsMSP
+        ID: DepotsMSP
+        MSPDir: crypto-config/peerOrganizations/depots.example.com/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('DelivererMSP.admin', 'DelivererMSP.peer', 'DelivererMSP.client')"
+                Rule: "OR('DepotsMSP.admin', 'DepotsMSP.peer', 'DepotsMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('DelivererMSP.admin', 'DelivererMSP.client')"
+                Rule: "OR('DepotsMSP.admin', 'DepotsMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('DelivererMSP.admin')"
+                Rule: "OR('DepotsMSP.admin')"
                 
-    - &Retailer
-        Name: RetailerMSP
-        ID: RetailerMSP
-        MSPDir: crypto-config/peerOrganizations/retailer.example.com/msp
+    - &FPS
+        Name: FPSMSP
+        ID: FPSMSP
+        MSPDir: crypto-config/peerOrganizations/fps.example.com/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('RetailerMSP.admin', 'RetailerMSP.peer', 'RetailerMSP.client')"
+                Rule: "OR('FPSMSP.admin', 'FPSMSP.peer', 'FPSMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('RetailerMSP.admin', 'RetailerMSP.client')"
+                Rule: "OR('FPSMSP.admin', 'FPSMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('RetailerMSP.admin')"
+                Rule: "OR('FPSMSP.admin')"
 
 Capabilities:
     Channel: &ChannelCapabilities
@@ -167,20 +167,20 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *Producer
-                    - *Manufacturer
-                    - *Deliverer
-                    - *Retailer
+                    - *Fps
+                    - *CentralGovernment
+                    - *Depots
+                    - *FPS
     SupplyChannel:
         Consortium: SampleConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Producer
-                - *Manufacturer
-                - *Deliverer
-                - *Retailer
+                - *Fps
+                - *CentralGovernment
+                - *Depots
+                - *FPS
             Capabilities:
                 <<: *ApplicationCapabilities
 
