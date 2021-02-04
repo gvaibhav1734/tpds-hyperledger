@@ -7,14 +7,14 @@ version: '2'
 
 volumes:
   orderer.example.com:
-  peer0.producer.example.com:
-  peer0.manufacturer.example.com:
-  peer0.deliverer.example.com:
-  peer0.retailer.example.com:
-  caProducer:
-  caManufacturer:
-  caDeliverer:
-  caRetailer:
+  peer0.centralgovernment.example.com:
+  peer0.stategovernmentdepot.example.com:
+  peer0.stategovernmentfps.example.com:
+  peer0.other.example.com:
+  caCentralGovernment:
+  caStateGovernmentDepot:
+  caStateGovernmentFPS:
+  caOther:
 
 networks:
   byfn:
@@ -29,70 +29,69 @@ services:
     networks:
       - byfn
 
-  peer0.producer.example.com:
-    container_name: peer0.producer.example.com
+  peer0.centralgovernment.example.com:
+    container_name: peer0.centralgovernment.example.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.producer.example.com
+      service: peer0.centralgovernment.example.com
+    networks:
+      - byfn
+      
+  peer0.stategovernmentdepot.example.com:
+    container_name: peer0.stategovernmentdepot.example.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.stategovernmentdepot.example.com
+    networks:
+      - byfn
+      
+  peer0.stategovernmentfps.example.com:
+    container_name: peer0.stategovernmentfps.example.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.stategovernmentfps.example.com
+    networks:
+      - byfn
+      
+  peer0.other.example.com:
+    container_name: peer0.other.example.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.other.example.com
+    networks:
+      - byfn
+       
+  caCentralGovernment:
+    container_name: caCentralGovernment
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: caCentralGovernment
+    networks:
+      - byfn
+      
+  caStateGovernmentDepot:
+    container_name: caStateGovernmentDepot
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: caStateGovernmentDepot
+    networks:
+      - byfn
+      
+  caStateGovernmentFPS:
+    container_name: caStateGovernmentFPS
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: caStateGovernmentFPS
     networks:
       - byfn
 
-  peer0.manufacturer.example.com:
-    container_name: peer0.manufacturer.example.com
+  caOther:
+    container_name: caOther
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.manufacturer.example.com
+      service: caOther
     networks:
-      - byfn
-      
-  peer0.deliverer.example.com:
-    container_name: peer0.deliverer.example.com
-    extends:
-      file:  base/docker-compose-base.yaml
-      service: peer0.deliverer.example.com
-    networks:
-      - byfn
-      
-  peer0.retailer.example.com:
-    container_name: peer0.retailer.example.com
-    extends:
-      file:  base/docker-compose-base.yaml
-      service: peer0.retailer.example.com
-    networks:
-      - byfn
-      
-  caProducer:
-    container_name: caProducer
-    extends:
-      file:  base/docker-compose-base.yaml
-      service: caProducer
-    networks:
-      - byfn
-      
-  caManufacturer:
-    container_name: caManufacturer
-    extends:
-      file:  base/docker-compose-base.yaml
-      service: caManufacturer
-    networks:
-      - byfn
-      
-  caDeliverer:
-    container_name: caDeliverer
-    extends:
-      file:  base/docker-compose-base.yaml
-      service: caDeliverer
-    networks:
-      - byfn
-      
-  caRetailer:
-    container_name: caRetailer
-    extends:
-      file:  base/docker-compose-base.yaml
-      service: caRetailer
-    networks:
-      - byfn
-      
+      - byfn      
       
   cli:
     container_name: cli
@@ -122,13 +121,13 @@ services:
         - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     depends_on:
       - orderer.example.com
-      - peer0.producer.example.com
-      - peer0.manufacturer.example.com
-      - peer0.deliverer.example.com
-      - peer0.retailer.example.com
-      - caProducer
-      - caManufacturer
-      - caDeliverer
-      - caRetailer
+      - peer0.centralgovernment.example.com
+      - peer0.stategovernmentdepot.example.com
+      - peer0.stategovernmentfps.example.com
+      - peer0.other.example.com
+      - caCentralGovernment
+      - caStateGovernmentDepot
+      - caStateGovernmentFPS
+      - caOther
     networks:
       - byfn

@@ -20,65 +20,65 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.admin')"
 
-    - &Producer
-        Name: ProducerMSP
-        ID: ProducerMSP
-        MSPDir: crypto-config/peerOrganizations/producer.example.com/msp
+    - &CentralGovernment
+        Name: CentralGovernmentMSP
+        ID: CentralGovernmentMSP
+        MSPDir: crypto-config/peerOrganizations/centralgovernment.example.com/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('ProducerMSP.admin', 'ProducerMSP.peer', 'ProducerMSP.client')"
+                Rule: "OR('CentralGovernmentMSP.admin', 'CentralGovernmentMSP.peer', 'ManufacturerMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('ProducerMSP.admin', 'ProducerMSP.client')"
+                Rule: "OR('CentralGovernmentMSP.admin', 'CentralGovernmentMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('ProducerMSP.admin')"
+                Rule: "OR('CentralGovernmentMSP.admin')"
+                
+    - &StateGovernmentDepot
+        Name: StateGovernmentDepotMSP
+        ID: StateGovernmentDepotMSP
+        MSPDir: crypto-config/peerOrganizations/stategovernmentdepot.example.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('StateGovernmentDepotMSP.admin', 'StateGovernmentDepotMSP.peer', 'StateGovernmentDepotMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('StateGovernmentDepotMSP.admin', 'StateGovernmentDepotMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('StateGovernmentDepotMSP.admin')"
+                
+    - &StateGovernmentFPS
+        Name: StateGovernmentFPSMSP
+        ID: StateGovernmentFPSMSP
+        MSPDir: crypto-config/peerOrganizations/stategovernmentfps.example.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('StateGovernmentFPSMSP.admin', 'StateGovernmentFPSMSP.peer', 'StateGovernmentFPSMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('StateGovernmentFPSMSP.admin', 'StateGovernmentFPSMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('StateGovernmentFPSMSP.admin')"
 
-    - &Manufacturer
-        Name: ManufacturerMSP
-        ID: ManufacturerMSP
-        MSPDir: crypto-config/peerOrganizations/manufacturer.example.com/msp
+    - &Other
+        Name: OtherMSP
+        ID: OtherMSP
+        MSPDir: crypto-config/peerOrganizations/other.example.com/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('ManufacturerMSP.admin', 'ManufacturerMSP.peer', 'ManufacturerMSP.client')"
+                Rule: "OR('OtherMSP.admin', 'OtherMSP.peer', 'OtherMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('ManufacturerMSP.admin', 'ManufacturerMSP.client')"
+                Rule: "OR('OtherMSP.admin', 'OtherMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('ManufacturerMSP.admin')"
-                
-    - &Deliverer
-        Name: DelivererMSP
-        ID: DelivererMSP
-        MSPDir: crypto-config/peerOrganizations/deliverer.example.com/msp
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('DelivererMSP.admin', 'DelivererMSP.peer', 'DelivererMSP.client')"
-            Writers:
-                Type: Signature
-                Rule: "OR('DelivererMSP.admin', 'DelivererMSP.client')"
-            Admins:
-                Type: Signature
-                Rule: "OR('DelivererMSP.admin')"
-                
-    - &Retailer
-        Name: RetailerMSP
-        ID: RetailerMSP
-        MSPDir: crypto-config/peerOrganizations/retailer.example.com/msp
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('RetailerMSP.admin', 'RetailerMSP.peer', 'RetailerMSP.client')"
-            Writers:
-                Type: Signature
-                Rule: "OR('RetailerMSP.admin', 'RetailerMSP.client')"
-            Admins:
-                Type: Signature
-                Rule: "OR('RetailerMSP.admin')"
+                Rule: "OR('OtherMSP.admin')"
 
 Capabilities:
     Channel: &ChannelCapabilities
@@ -167,20 +167,20 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *Producer
-                    - *Manufacturer
-                    - *Deliverer
-                    - *Retailer
+                    - *CentralGovernment
+                    - *StateGovernmentDepot
+                    - *StateGovernmentFPS
+                    - *Other
     SupplyChannel:
         Consortium: SampleConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Producer
-                - *Manufacturer
-                - *Deliverer
-                - *Retailer
+                - *CentralGovernment
+                - *StateGovernmentDepot
+                - *StateGovernmentFPS
+                - *Other
             Capabilities:
                 <<: *ApplicationCapabilities
 

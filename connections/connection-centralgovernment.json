@@ -1,0 +1,49 @@
+{
+    "name": "supply-chain-producer",
+    "version": "1.0.0",
+    "client": {
+        "organization": "centralgovernment",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "centralgovernment": {
+            "mspid": "CentralGovernmentMSP",
+            "peers": [
+                "peer0.centralgovernment.example.com"
+            ],
+            "certificateAuthorities": [
+                "ca.centralgovernment.example.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.centralgovernment.example.com": {
+            "url": "grpcs://localhost:7051",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICjTCCAjSgAwIBAgIRAMPLPu+74KKjpygbytCV0SIwCgYIKoZIzj0EAwIwgZAx\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMSYwJAYDVQQKEx1jZW50cmFsZ292ZXJubWVudC5leGFtcGxlLmNv\nbTEsMCoGA1UEAxMjdGxzY2EuY2VudHJhbGdvdmVybm1lbnQuZXhhbXBsZS5jb20w\nHhcNMjEwMjA0MDYzMjAwWhcNMzEwMjAyMDYzMjAwWjCBkDELMAkGA1UEBhMCVVMx\nEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xJjAk\nBgNVBAoTHWNlbnRyYWxnb3Zlcm5tZW50LmV4YW1wbGUuY29tMSwwKgYDVQQDEyN0\nbHNjYS5jZW50cmFsZ292ZXJubWVudC5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEG\nCCqGSM49AwEHA0IABHYL6iL6kmw+CchCAresqLoKr4Y305PCEhb321ZiUEqlrFZ9\nhBoYv+rTbFPJwwJGukExuvKZ5SxUZaD/DygQLMSjbTBrMA4GA1UdDwEB/wQEAwIB\npjAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB\n/zApBgNVHQ4EIgQg0+T/EmovQO+RyTDf0PMOmTyPGaYlt+QxR0vzo5K4vCMwCgYI\nKoZIzj0EAwIDRwAwRAIgUc+vzzYmBmlhlShXd1gxXFrFKZsA/uOSIFQDQxHJHNoC\nIAkCeBrgaou9QIbD6BhHrdqoDlksAXmfwztRmAxzt0hB\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.centralgovernment.example.com",
+                "hostnameOverride": "peer0.centralgovernment.example.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.centralgovernment.example.com": {
+            "url": "https://localhost:7054",
+            "caName": "ca-centralgovernment",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIIChzCCAi2gAwIBAgIQEyGRquNdDX8SBEYsiKqqczAKBggqhkjOPQQDAjCBjTEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xJjAkBgNVBAoTHWNlbnRyYWxnb3Zlcm5tZW50LmV4YW1wbGUuY29t\nMSkwJwYDVQQDEyBjYS5jZW50cmFsZ292ZXJubWVudC5leGFtcGxlLmNvbTAeFw0y\nMTAyMDQwNjMyMDBaFw0zMTAyMDIwNjMyMDBaMIGNMQswCQYDVQQGEwJVUzETMBEG\nA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5jaXNjbzEmMCQGA1UE\nChMdY2VudHJhbGdvdmVybm1lbnQuZXhhbXBsZS5jb20xKTAnBgNVBAMTIGNhLmNl\nbnRyYWxnb3Zlcm5tZW50LmV4YW1wbGUuY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0D\nAQcDQgAEjGuIgjK6d2dxTiHQzkwA3qlJ9iKsf4XDA+MEgLAJUNb62n9Y5gEh9eFB\naFEAjpo03TTYXZ89JhHfQ7qcR8yUCaNtMGswDgYDVR0PAQH/BAQDAgGmMB0GA1Ud\nJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MCkGA1Ud\nDgQiBCAeAGqHe9z/a3UlUeA8oYZlMgsR0UvcA+wCHprvXTaZ5zAKBggqhkjOPQQD\nAgNIADBFAiEAhAvJeFkO9j1BYDoqr8eMt+lFPcyZbKi+4vrxls447U4CIG4mrWjX\nt6kabZBb/Rut99yM8W7Iiv25VzrhdFbVDtJl\n-----END CERTIFICATE-----\n"
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

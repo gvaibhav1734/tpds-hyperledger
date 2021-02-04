@@ -1,0 +1,49 @@
+{
+    "name": "supply-chain-producer",
+    "version": "1.0.0",
+    "client": {
+        "organization": "stategovernmentfps",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "stategovernmentfps": {
+            "mspid": "StateGovernmentFPSMSP",
+            "peers": [
+                "peer0.stategovernmentfps.example.com"
+            ],
+            "certificateAuthorities": [
+                "ca.stategovernmentfps.example.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.stategovernmentfps.example.com": {
+            "url": "grpcs://localhost:10051",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICkjCCAjigAwIBAgIRAMwhbyratOZhAszw0C0RTygwCgYIKoZIzj0EAwIwgZIx\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMScwJQYDVQQKEx5zdGF0ZWdvdmVybm1lbnRmcHMuZXhhbXBsZS5j\nb20xLTArBgNVBAMTJHRsc2NhLnN0YXRlZ292ZXJubWVudGZwcy5leGFtcGxlLmNv\nbTAeFw0yMTAyMDQwNjMyMDBaFw0zMTAyMDIwNjMyMDBaMIGSMQswCQYDVQQGEwJV\nUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5jaXNjbzEn\nMCUGA1UEChMec3RhdGVnb3Zlcm5tZW50ZnBzLmV4YW1wbGUuY29tMS0wKwYDVQQD\nEyR0bHNjYS5zdGF0ZWdvdmVybm1lbnRmcHMuZXhhbXBsZS5jb20wWTATBgcqhkjO\nPQIBBggqhkjOPQMBBwNCAAQgr16LEFX3w4Hj/tNFsFHBi0ZWZpBh9U0lMU+xxyxs\nDXtmWEQ6lCzzvV5/ncOQeQ8B7YB9jo2IwBps8aaKpXTLo20wazAOBgNVHQ8BAf8E\nBAMCAaYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMBMA8GA1UdEwEB/wQF\nMAMBAf8wKQYDVR0OBCIEIHtt9rrxNnDU/UHfpyMOM/RRIiOSc33g8Rm+wII+hKil\nMAoGCCqGSM49BAMCA0gAMEUCIQDeebDHmZDrdXNKSBcyC/lXH+0TA1wmo7Y4uDKR\npATy5wIgUjn6UDKnQ5toLSyYdpqaDJng4JN1m1EjrOe0waPMaI8=\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.stategovernmentfps.example.com",
+                "hostnameOverride": "peer0.stategovernmentfps.example.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.stategovernmentfps.example.com": {
+            "url": "https://localhost:9054",
+            "caName": "ca-stategovernmentfps",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICizCCAjKgAwIBAgIRAKmp4QeWK/4stbPsImhy6vUwCgYIKoZIzj0EAwIwgY8x\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMScwJQYDVQQKEx5zdGF0ZWdvdmVybm1lbnRmcHMuZXhhbXBsZS5j\nb20xKjAoBgNVBAMTIWNhLnN0YXRlZ292ZXJubWVudGZwcy5leGFtcGxlLmNvbTAe\nFw0yMTAyMDQwNjMyMDBaFw0zMTAyMDIwNjMyMDBaMIGPMQswCQYDVQQGEwJVUzET\nMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5jaXNjbzEnMCUG\nA1UEChMec3RhdGVnb3Zlcm5tZW50ZnBzLmV4YW1wbGUuY29tMSowKAYDVQQDEyFj\nYS5zdGF0ZWdvdmVybm1lbnRmcHMuZXhhbXBsZS5jb20wWTATBgcqhkjOPQIBBggq\nhkjOPQMBBwNCAASKhIodJ49ipRI6s+vk/iCQyxEVuHKgM5vULgtN6a9tApMenOHP\nRm2LAHIEf7Hl6a3MwvOQ2UlPWT74To+Ww1/5o20wazAOBgNVHQ8BAf8EBAMCAaYw\nHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMBMA8GA1UdEwEB/wQFMAMBAf8w\nKQYDVR0OBCIEIIGDM0up6eha8bkFzC6HIE30Lq8xmOjhQjinBN7TYBJ8MAoGCCqG\nSM49BAMCA0cAMEQCIAo5LzdNa/tO8BkDs1kR7u5nCitXDjjMlY4rRIB252/JAiAO\nQ+QKJXcmEtHh0ihWRVFi8CNlP1F2UXSVdstiIbfePA==\n-----END CERTIFICATE-----\n"
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

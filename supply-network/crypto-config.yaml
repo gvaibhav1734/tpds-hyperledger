@@ -6,29 +6,29 @@ OrdererOrgs:
       - Hostname: orderer
 
 PeerOrgs:
-  - Name: Producer
-    Domain: producer.example.com
+  - Name: CentralGovernment
+    Domain: centralgovernment.example.com
     EnableNodeOUs: true
     Template:
       Count: 1
     Users:
       Count: 1
-  - Name: Manufacturer
-    Domain: manufacturer.example.com
+  - Name: StateGovernmentDepot
+    Domain: stategovernmentdepot.example.com
     EnableNodeOUs: true
     Template:
       Count: 1
     Users:
       Count: 1
-  - Name: Deliverer
-    Domain: deliverer.example.com
+  - Name: StateGovernmentFPS
+    Domain: stategovernmentfps.example.com
     EnableNodeOUs: true
     Template:
       Count: 1
     Users:
       Count: 1
-  - Name: Retailer
-    Domain: retailer.example.com
+  - Name: Other
+    Domain: other.example.com
     EnableNodeOUs: true
     Template:
       Count: 1
