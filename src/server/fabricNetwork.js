@@ -18,6 +18,9 @@ async function connectNetwork(conn, walletOrg) {
     console.log('Run the registerUser.js application before retrying');
     return;
   }
+
+  delete require.cache[CHANNEL];
+
   // Create a new gateway for connecting to our peer node.
   const gateway = new Gateway();
   await gateway.connect(ccpPath, {
@@ -30,8 +33,21 @@ async function connectNetwork(conn, walletOrg) {
   });
   // Get the network (channel) our contract is deployed to.
   const network = await gateway.getNetwork(CHANNEL);
+
+  // var ledgerPeers = await gateway.getClient().getPeersForOrg();
+
   // Get the contract from the network.
   const contract = network.getContract(CONTRACT);
+  // console.log(`contract: ${Object.keys(contract)}`);
+
+  // for ( var key in contract ) {
+
+  //   console.log( key ); // "who"
+  //   console.log( contract[key] ); // "Arthur"
+
+  // }
+
+
   return contract;
 }
 

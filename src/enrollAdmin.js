@@ -35,7 +35,13 @@ async function main() {
         }
 
         // Enroll the admin user, and import the new identity into the wallet.
-        const upper = org.replace(/^\w/, c => c.toUpperCase());
+        var upper = org.replace(/^\w/, c => c.toUpperCase());
+        if (upper == 'Centralgovernment') 
+            upper = 'CentralGovernment';
+        else if (upper == 'Stategovernmentdepot') 
+            upper = 'StateGovernmentDepot';
+        else if (upper == 'Stategovernmentfps') 
+            upper = 'StateGovernmentFPS';
         const enrollment = await ca.enroll({ enrollmentID: 'admin', enrollmentSecret: 'adminpw' });
         const identity = X509WalletMixin.createIdentity(`${upper}MSP`, enrollment.certificate, enrollment.key.toBytes());
         await wallet.import('admin', identity);

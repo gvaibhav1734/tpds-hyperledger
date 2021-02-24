@@ -48,6 +48,40 @@ app.get('/api/getFoodGrainAsset/:id', async function (req, res) {
   }
 });
 
+app.post('/api/transferFoodGrainAsset', async function (req, res) {
+  try {
+    const contract = await fabricNetwork.connectNetwork('connection-stategovernmentdepot.json', 'wallet/wallet-stategovernmentdepot');
+    let tx = await contract.submitTransaction('changeOwner', req.body.id.toString(), req.body.from.toString(), req.body.to.toString());
+    res.json({
+      status: 'OK - Transaction has been submitted',
+      txid: tx.toString()
+    });
+  } catch (error) {
+    console.error(`Failed to evaluate transaction: ${error}`);
+    res.status(500).json({
+      error: error
+    });
+  }
+
+});
+
+
+// app.get('/api/getAllFoodGrainAssets', async function (req, res) {
+//   try {
+//     const contract = await fabricNetwork.connectNetwork('connection-stategovernmentfps.json', 'wallet/wallet-stategovernmentfps');
+//     const result = await contract.evaluateTransaction('queryAllAssets');
+//     console.log(`result: ${result}`);
+//     let response = JSON.parse(result.toString());
+//     console.log(`result: ${response}`);
+//     res.json({result:response});
+//   } catch (error) {
+//     console.error(`Failed to evaluate transaction: ${error}`);
+//     res.status(500).json({
+//       error: error
+//     });
+//   }
+// });
+
 // app.post('/api/addTuna', async function (req, res) {
 
 //   try {
