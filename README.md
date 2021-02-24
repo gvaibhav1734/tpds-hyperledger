@@ -79,7 +79,7 @@ This will create the crypto material for all the orgs, start the network and reg
             
 **getFoodGrainAsset**
 ----
-  Get Tuna from the blockchain with the actual status
+  Get food grain asset from the blockchain with the actual status
 
 * **URL**
 
@@ -109,7 +109,7 @@ This will create the crypto material for all the orgs, start the network and reg
 
 ``` 
 curl --request GET \
-  --url 'http://localhost:3000/api/getFoodGrainAsset/<TunaId>' \
+  --url 'http://localhost:3000/api/getFoodGrainAsset/<foodGrainAssetId>' \
   --header 'content-type: application/json' \ 
 ```
 
@@ -120,7 +120,7 @@ curl --request GET \
 
 * **URL**
 
-  `/api/getTuna/transferFoodGrainAsset`
+  `/api/transferFoodGrainAsset`
 
 * **Method:**
   
