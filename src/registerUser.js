@@ -40,7 +40,14 @@ async function main() {
         const ca = gateway.getClient().getCertificateAuthority();
         const adminIdentity = gateway.getCurrentIdentity();
 
-        const upper = org.replace(/^\w/, c => c.toUpperCase());
+        var upper = org.replace(/^\w/, c => c.toUpperCase());
+        if (upper == 'Centralgovernment') 
+            upper = 'CentralGovernment';
+        else if (upper == 'Stategovernmentdepot') 
+            upper = 'StateGovernmentDepot';
+        else if (upper == 'Stategovernmentfps') 
+            upper = 'StateGovernmentFPS';
+        // console.log(`msp: ${upper}`);
         // Register the user, enroll the user, and import the new identity into the wallet.
         const secret = await ca.register({enrollmentID: 'user1', role: 'client' }, adminIdentity);
         const enrollment = await ca.enroll({ enrollmentID: 'user1', enrollmentSecret: secret });

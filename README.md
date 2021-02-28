@@ -1,9 +1,5 @@
-# hlf1.4-supply-chain
-Supply chain proof of concept in Hyperledger Fabric. Network with four companies and a specific chaincode exposed as rest API
-
-More info in Medium tutorials
-* [English](https://medium.com/coinmonks/creating-a-hyperledger-fabric-network-from-scratch-part-i-designing-the-network-23d803bbdb61) 
-* [Spanish](https://medium.com/@ialberquilla/creando-una-red-hyperledger-fabric-desde-cero-96314117e633)
+# tpds-hyperledger
+TPDS Supply chain proof of concept in Hyperledger Fabric. Network with four orgs and a specific chaincode exposed as rest API
 
 # Installation instructions
 
@@ -17,10 +13,10 @@ https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html
 `cd fabric-samples`
 
 4. Download the template:
-`git clone https://github.com/ialberquilla/hlf1.4-supply-chain`
+`git clone https://github.com/gvaibhav1734/tpds-hyperledger`
 
 6. Go to 
-`hlf1.4-supply-chain`
+`tpds-hyperledger`
 
 5. Install node-js dependencies
 `./network.sh install`
@@ -41,13 +37,13 @@ This will create the crypto material for all the orgs, start the network and reg
 
 
 # API Doc
-**AddTuna**
+**CreateFoodGrainAsset**
 ----
-  Add new Tuna to the blockchain network
+  Add new food grain asset to the blockchain network
 
 * **URL**
 
-  `/api/addTuna`
+  `/api/createFoodGrainAsset`
 
 * **Method:**
   
@@ -57,10 +53,7 @@ This will create the crypto material for all the orgs, start the network and reg
 
 ```
   "id":integer,
-  "latitude":string,
-  "longitude":string,
-  "length":integer,
-  "weight":integer
+  "quantity":string,
  ``` 
 
 * **Success Response:**
@@ -76,24 +69,21 @@ This will create the crypto material for all the orgs, start the network and reg
 
  ``` 
  curl --request POST \
-  --url http://localhost:3000/api/addTuna \
+  --url http://localhost:3000/api/createFoodGrainAsset \
   --header 'content-type: application/json' \
   --data '{
-			"id":10001,
-			"latitude":"43.3623",
-			"longitude":"8.4115",
-			"length":34,
-			"weight":50
+			"id":1001,
+			"quantity":"50",
 		   }' 
  ```
             
-**getTuna**
+**getFoodGrainAsset**
 ----
-  Get Tuna from the blockchain with the actual status
+  Get food grain asset from the blockchain with the actual status
 
 * **URL**
 
-  `/api/getTuna/:id`
+  `/api/getFoodGrainAsset/:id`
 
 * **Method:**
   
@@ -108,10 +98,9 @@ This will create the crypto material for all the orgs, start the network and reg
  {
     "result": {
         "id": integer
-        "latitude": string
-        "longitude": string
-        "length": integer
-        "weight": integer
+        "owner": string
+        "prev_owners": string array
+        "state": integer
     } 
  }
  ```
@@ -120,18 +109,18 @@ This will create the crypto material for all the orgs, start the network and reg
 
 ``` 
 curl --request GET \
-  --url 'http://localhost:3000/api/getTuna/<TunaId>' \
+  --url 'http://localhost:3000/api/getFoodGrainAsset/<foodGrainAssetId>' \
   --header 'content-type: application/json' \ 
 ```
 
 
-**setPosition**
+**transferFoodGrainAsset**
 ----
-  Sets the position (latitude and longitud) for the specified id, could be sushiId or TunaId
+  Changes the owner and prev_owners for the specified foood grain asset id when a transfer happens
 
 * **URL**
 
-  `/api/getTuna/setPosition`
+  `/api/transferFoodGrainAsset`
 
 * **Method:**
   
@@ -139,53 +128,11 @@ curl --request GET \
 
 * **Data Params**
 ``` 
-"id":10001,
-"latitude":"43.3623",
-"longitude":"8.4115"
-``` 
-
-* **Success Response:**
-  
- ``` 
-{	
-	status":"OK - Transaction has been submitted",
-	"txid":"7f485a8c3a3c7f982aed76e3b20a0ad0fb4cbf174fbeabc792969a30a3383499"
-}
- ```
- 
-* **Sample Call:**
-
-``` 
-curl --request POST \
-  --url http://localhost:3000/api/setPosition \
-  --header 'content-type: application/json' \
-  --data '{
-            "id":10001,
-            "latitude":"43.3623",
-            "longitude":"8.4115"
-			}'
-```
-
-**addSushi**
-----
-   Add new Sushi to the blockchain network with the related TunaId
-
-* **URL**
-
-  `/api/getTuna/addSushi`
-
-* **Method:**
-  
-	`POST` 
-
-* **Data Params**
- ```   
 "id":integer,
-"latitude":string,
-"longitude":string,
-"type":string,
-"tunaId":integer
- ``` 
+"from":string,
+"to":string
+``` 
+
 * **Success Response:**
   
  ``` 
@@ -199,107 +146,11 @@ curl --request POST \
 
 ``` 
 curl --request POST \
-  --url http://localhost:3000/api/addSushi \
+  --url http://localhost:3000/api/transferFoodGrainAsset \
   --header 'content-type: application/json' \
   --data '{
-			"id":200001,
-            "latitude":"42.5987",
-            "longitude":"5.5671",
-            "type":"sashimi",
-            "tunaId":10001
+            "id":1001,
+            "from":"Central Government",
+            "to":"State Government Depot"
 			}'
-```
-
-**getSushi**
-----
-  Get sushi from the blockchain with the actual status
-
-* **URL**
-
-  `/api/getSushi/:id`
-
-* **Method:**
-  
-	`GET` 
-
-* **URL Params**
-    `"id":integer`
-
-* **Success Response:**
-  
- ``` 
-  {
-    "result": {
-            "id":"200001",
-            "latitude":"42.5987",
-            "longitude":"5.5671",
-            "type":"sashimi",
-            "tunaId":10001
-			}'
-}
- ```
- 
-* **Sample Call:**
- 
-``` 
-curl --request GET \
-  --url 'http://localhost:3000/api/getSushi/<SushiId>' \
-  --header 'content-type: application/json' \
-```
-
-
-
-**getSushiHistory**
-----
-  Get sushi history, from the TunaId that started the supply-chain, getting all the history positions, until the sushi is delivered, with the sushi history too
-
-* **URL**
-
-  `/api/getHistorySushi/:id`
-
-* **Method:**
-  
-	`GET` 
-
-* **URL Params**
-    `"id":integer`
-
-* **Success Response:**
-  
- ``` 
-{
-    "historySushi": [
-        {
-            "id": "200001",
-            "latitude":"42.5987",
-            "longitude":"5.5671",
-            "type": "sashimi",
-            "tunaId": 10004
-        },
-        {
-            "id": "200001",
-            "latitude":"43.3623",
-            "longitude":"8.4115",
-            "type": "sashimi",
-            "tunaId": 10004
-        }
-    ],
-    "historyTuna": [
-        {
-            "id": "10004",
-            "latitude":"43.3623",
-            "longitude":"8.4115",
-            "length": 34,
-            "weight": 50
-        }
-    ]
-}
- ```
- 
-* **Sample Call:**
- 
- ``` 
-curl --request GET \
-  --url 'http://localhost:3000/api/getHistorySushi/<SushiId>' \
-  --header 'content-type: application/json' \
 ```

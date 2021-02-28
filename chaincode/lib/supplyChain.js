@@ -38,9 +38,10 @@ class User {
 
 class SupplyChainContext extends Context {
     constructor() {
-        super();
+        // super();
         this.assetID = 0;
         this.userID = 0;
+		this.assetList = [];
     }
     
     updateAssetID() {
@@ -62,13 +63,64 @@ class SupplyChainContext extends Context {
 
 class SupplyChain extends Contract {
 
+	createContext() {
+        return new SupplyChainContext();
+    }
+
 	async createAsset(ctx, asset) {
 	  console.info('============= START : Add asset ===========');
 	  await ctx.stub.putState(JSON.parse(asset).id.toString(), Buffer.from(asset));
+	  ctx.assetList.push(JSON.parse(asset).id.toString());
 	  console.info('============= END : Add asset ===========');
-	  return ctx.stub.getTxID()
+	  return ctx.stub.getTxID();
+	}
+
+	async changeOwner(ctx, id, from, to) {
+	  console.info('============= START : Transfer and Change Owner ===========');
+	  const keyAsBytes = await ctx.stub.getState(id); 
+	  if (!keyAsBytes || keyAsBytes.length === 0) {
+		throw new Error(`${id} does not exist`);
+	  }
+	  let key = JSON.parse(keyAsBytes.toString());
+	  if (key.owner != from) {
+		throw new Error(`${from} cannot make this transfer`);
+	  }
+	  key.owner = to;
+	  key.prev_owners.push(from);
+	  key.state = 2;
+	  await ctx.stub.putState(id, Buffer.from(JSON.stringify(key)));
+	  console.info('============= END : Transfer and Change Owner ===========');
+	  return ctx.stub.getTxID();
 	}
 	
+	async queryAsset(ctx, assetId) {
+		console.info('============= START : Query asset ===========');
+		const assetAsBytes = await ctx.stub.getState(assetId); 
+		if (!assetAsBytes || assetAsBytes.length === 0) {
+		  throw new Error(`${assetId} does not exist`);
+		}
+		console.log(assetAsBytes.toString());
+		console.info('============= END : Query asset ===========');
+		return assetAsBytes.toString();
+	}
+
+	// async queryAllAssets(ctx) {
+	// 	console.info('============= START : Query all assets ===========');
+	// 	var ans = {"data": [1,2,3]};
+	// 	// var assetStrings = [];
+	// 	// assetStrings.push("test before");
+	// 	// for(var id in ctx.assetList) {
+	// 	// for(var i = 0; i < 3; i++) {
+	// 		// const assetAsBytes = await ctx.stub.getState(id);
+	// 		// assetStrings.push(assetAsBytes.toString());
+	// 		// assetStrings.push("test");
+	// 		// console.log(assetAsBytes.toString());
+	// 	// }
+	// 	// assetStrings.push("test after");
+	// 	console.info('============= END : Query all assets ===========');
+	// 	// return assetStrings;
+	// 	return JSON.stringify(ans);
+	// }
 
 	// async addAsset(ctx, asset) {
 	//   console.info('============= START : Add asset ===========');
@@ -77,16 +129,16 @@ class SupplyChain extends Contract {
 	//   return ctx.stub.getTxID()
 	// }
 
-	async queryAsset(ctx, assetId) {
-	  console.info('============= START : Query asset ===========');
-	  const assetAsBytes = await ctx.stub.getState(assetId); 
-	  if (!assetAsBytes || assetAsBytes.length === 0) {
-		throw new Error(`${assetId} does not exist`);
-	  }
-	  console.log(assetAsBytes.toString());
-	  console.info('============= END : Query asset ===========');
-	  return assetAsBytes.toString();
-	}
+	// async queryAsset(ctx, assetId) {
+	//   console.info('============= START : Query asset ===========');
+	//   const assetAsBytes = await ctx.stub.getState(assetId); 
+	//   if (!assetAsBytes || assetAsBytes.length === 0) {
+	// 	throw new Error(`${assetId} does not exist`);
+	//   }
+	//   console.log(assetAsBytes.toString());
+	//   console.info('============= END : Query asset ===========');
+	//   return assetAsBytes.toString();
+	// }
 	  
 	// async setPosition(ctx, id, latitude, longitude) {
 	//   console.info('============= START : Set position ===========');
