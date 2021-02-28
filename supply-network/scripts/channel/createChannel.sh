@@ -11,15 +11,17 @@ ORDERER_SYSCHAN_ID=syschain
 echo "Create channel 1"
 peer channel create -o  orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA >&log.txt
 cat log.txt
+echo 
+echo "Channel created, joining Central Government..."
+peer channel join -b mychannel.block
 
 CHANNEL_NAME=mychannel2
 echo "Create channel 2"
 peer channel create -o  orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel2.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA >&log.txt
 cat log.txt
 
-
 #peer channel create -o orderer.example.com:7050 /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -c mychannel -f ./channel-artifacts/channel.tx
 
 echo 
 echo "Channel created, joining Central Government..."
-peer channel join -b mychannel.block
+peer channel join -b mychannel2.block
