@@ -12,7 +12,7 @@ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypt
 CORE_PEER_ADDRESS=$PEER.$ORG.example.com:$PORT
 CHANNEL_NAME=mychannel
 CORE_PEER_TLS_ENABLED=true
-echo "Join channel 1"
-pwd
-peer channel join -b mychannel.block >&log.txt
+CHANNEL_NAME=mychannel2
+echo "Join channel 2"
+peer channel join -b mychannel2.block >&log.txt
 cat log.txt
