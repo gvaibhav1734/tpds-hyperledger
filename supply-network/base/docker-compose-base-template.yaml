@@ -27,12 +27,12 @@ services:
       service: peer-base
     environment:
       - CORE_PEER_ID=peer0.centralgovernment.example.com
-      - CORE_PEER_ADDRESS=peer0.centralgovernment.example.com:9051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.centralgovernment.example.com:9052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.centralgovernment.example.com:9051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.fps.example.com:9051
+      - CORE_PEER_ADDRESS=peer0.centralgovernment.example.com:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.centralgovernment.example.com:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.centralgovernment.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.centralgovernment.example.com:7051
       - CORE_PEER_LOCALMSPID=CentralGovernmentMSP
     volumes:
         - /var/run/:/host/var/run/
@@ -40,67 +40,74 @@ services:
         - ../crypto-config/peerOrganizations/centralgovernment.example.com/peers/peer0.centralgovernment.example.com/tls:/etc/hyperledger/fabric/tls
         - peer0.centralgovernment.example.com:/var/hyperledger/production
     ports:
-      - 9051:9051
-      
-  peer0.depots.example.com:
-    container_name: peer0.depots.example.com
+      - 7051:7051
+
+  peer0.stategovernmentdepot.example.com:
+    container_name: peer0.stategovernmentdepot.example.com
     extends:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - CORE_PEER_ID=peer0.depots.example.com
-      - CORE_PEER_ADDRESS=peer0.depots.example.com:10051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.depots.example.com:10052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.depots.example.com:10051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.fps.example.com:10051
-      - CORE_PEER_LOCALMSPID=DepotsMSP
+      - CORE_PEER_ID=peer0.stategovernmentdepot.example.com
+      - CORE_PEER_ADDRESS=peer0.stategovernmentdepot.example.com:9051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.stategovernmentdepot.example.com:9052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.stategovernmentdepot.example.com:9051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.stategovernmentdepot.example.com:9051
+      - CORE_PEER_LOCALMSPID=StateGovernmentDepotMSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/depots.example.com/peers/peer0.depots.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../crypto-config/peerOrganizations/depots.example.com/peers/peer0.depots.example.com/tls:/etc/hyperledger/fabric/tls
-        - peer0.depots.example.com:/var/hyperledger/production
+        - ../crypto-config/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.stategovernmentdepot.example.com:/var/hyperledger/production
+    ports:
+      - 9051:9051
+      
+  peer0.stategovernmentfps.example.com:
+    container_name: peer0.stategovernmentfps.example.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.stategovernmentfps.example.com
+      - CORE_PEER_ADDRESS=peer0.stategovernmentfps.example.com:10051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.stategovernmentfps.example.com:10052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.stategovernmentfps.example.com:10051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.stategovernmentfps.example.com:10051
+      - CORE_PEER_LOCALMSPID=StateGovernmentFPSMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.stategovernmentfps.example.com:/var/hyperledger/production
     ports:
       - 10051:10051
       
       
-  peer0.fps.example.com:
-    container_name: peer0.fps.example.com
+  peer0.other.example.com:
+    container_name: peer0.other.example.com
     extends:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - CORE_PEER_ID=peer0.fps.example.com
-      - CORE_PEER_ADDRESS=peer0.fps.example.com:11051
+      - CORE_PEER_ID=peer0.other.example.com
+      - CORE_PEER_ADDRESS=peer0.other.example.com:11051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.fps.example.com:11052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.other.example.com:11052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.fps.example.com:11051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.fps.example.com:11051
-      - CORE_PEER_LOCALMSPID=FPSMSP
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.other.example.com:11051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.other.example.com:11051
+      - CORE_PEER_LOCALMSPID=OtherMSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/fps.example.com/peers/peer0.fps.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../crypto-config/peerOrganizations/fps.example.com/peers/peer0.fps.example.com/tls:/etc/hyperledger/fabric/tls
-        - peer0.fps.example.com:/var/hyperledger/production
+        - ../crypto-config/peerOrganizations/other.example.com/peers/peer0.other.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/other.example.com/peers/peer0.other.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.other.example.com:/var/hyperledger/production
     ports:
       - 11051:11051
-      
-  caFps:
-    image: hyperledger/fabric-ca:$IMAGE_TAG
-    environment:
-      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca-fps
-      - FABRIC_CA_SERVER_TLS_ENABLED=true
-      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.fps.example.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA1_PRIVATE_KEY
-      - FABRIC_CA_SERVER_PORT=7054
-    ports:
-      - "7054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.fps.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA1_PRIVATE_KEY -b admin:adminpw -d'
-    volumes:
-      - ../crypto-config/peerOrganizations/fps.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
       
   caCentralGovernment:
     image: hyperledger/fabric-ca:$IMAGE_TAG
@@ -109,41 +116,56 @@ services:
       - FABRIC_CA_SERVER_CA_NAME=ca-centralgovernment
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.centralgovernment.example.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA1_PRIVATE_KEY
+      - FABRIC_CA_SERVER_PORT=7054
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.centralgovernment.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA1_PRIVATE_KEY -b admin:adminpw -d'
+    volumes:
+      - ../crypto-config/peerOrganizations/centralgovernment.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      
+  caStateGovernmentDepot:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-stategovernmentdepot
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.stategovernmentdepot.example.com-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY
       - FABRIC_CA_SERVER_PORT=8054
     ports:
       - "8054:8054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.centralgovernment.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.stategovernmentdepot.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
-      - ../crypto-config/peerOrganizations/centralgovernment.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ../crypto-config/peerOrganizations/stategovernmentdepot.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
       
-  caDepots:
+  caStateGovernmentFPS:
     image: hyperledger/fabric-ca:$IMAGE_TAG
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca-depots
+      - FABRIC_CA_SERVER_CA_NAME=ca-stategovernmentfps
       - FABRIC_CA_SERVER_TLS_ENABLED=true
-      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.depots.example.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.stategovernmentfps.example.com-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY
       - FABRIC_CA_SERVER_PORT=9054
     ports:
       - "9054:9054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.depots.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.stategovernmentfps.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
-      - ../crypto-config/peerOrganizations/depots.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ../crypto-config/peerOrganizations/stategovernmentfps.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
       
       
-  caFPS:
+  caOther:
     image: hyperledger/fabric-ca:$IMAGE_TAG
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca-fps
+      - FABRIC_CA_SERVER_CA_NAME=ca-other
       - FABRIC_CA_SERVER_TLS_ENABLED=true
-      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.fps.example.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.other.example.com-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA4_PRIVATE_KEY
       - FABRIC_CA_SERVER_PORT=10054
     ports:
       - "10054:10054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.fps.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA4_PRIVATE_KEY -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.other.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA4_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
-      - ../crypto-config/peerOrganizations/fps.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      - ../crypto-config/peerOrganizations/other.example.com/ca/:/etc/hyperledger/fabric-ca-server-config

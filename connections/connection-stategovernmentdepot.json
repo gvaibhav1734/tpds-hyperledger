@@ -1,0 +1,49 @@
+{
+    "name": "supply-chain-producer",
+    "version": "1.0.0",
+    "client": {
+        "organization": "stategovernmentdepot",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "stategovernmentdepot": {
+            "mspid": "StateGovernmentDepotMSP",
+            "peers": [
+                "peer0.stategovernmentdepot.example.com"
+            ],
+            "certificateAuthorities": [
+                "ca.stategovernmentdepot.example.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.stategovernmentdepot.example.com": {
+            "url": "grpcs://localhost:9051",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICmTCCAj+gAwIBAgIQSUF/uEOojREWDzXlpI1aTjAKBggqhkjOPQQDAjCBljEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xKTAnBgNVBAoTIHN0YXRlZ292ZXJubWVudGRlcG90LmV4YW1wbGUu\nY29tMS8wLQYDVQQDEyZ0bHNjYS5zdGF0ZWdvdmVybm1lbnRkZXBvdC5leGFtcGxl\nLmNvbTAeFw0yMTAyMTIxOTM0MDBaFw0zMTAyMTAxOTM0MDBaMIGWMQswCQYDVQQG\nEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5jaXNj\nbzEpMCcGA1UEChMgc3RhdGVnb3Zlcm5tZW50ZGVwb3QuZXhhbXBsZS5jb20xLzAt\nBgNVBAMTJnRsc2NhLnN0YXRlZ292ZXJubWVudGRlcG90LmV4YW1wbGUuY29tMFkw\nEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEzN0sIoHTebRn7juYQ38JFF8jdLrS3Xsz\nIPxQU4OQ+ez/EjB9nVounV0eazCBX1J0twrZee+gqMjcjyAh8f7WMaNtMGswDgYD\nVR0PAQH/BAQDAgGmMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATAPBgNV\nHRMBAf8EBTADAQH/MCkGA1UdDgQiBCCNiO0EE5NvlmnScNDzTY+PZxS9F6geHlbC\nqTy2jdp2uTAKBggqhkjOPQQDAgNIADBFAiEAyXiKAb15VKV1PsWnPFL2WYtaj7f3\nJIQAEW4JXkqDrioCIGCadQpyhGyIP3xGoDkSvXjoMvQfj1KPaPTslR0YaTQ4\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.stategovernmentdepot.example.com",
+                "hostnameOverride": "peer0.stategovernmentdepot.example.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.stategovernmentdepot.example.com": {
+            "url": "https://localhost:8054",
+            "caName": "ca-stategovernmentdepot",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIIClDCCAjqgAwIBAgIRAPj5OuXUy/Jzz7lKLHexMgwwCgYIKoZIzj0EAwIwgZMx\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMSkwJwYDVQQKEyBzdGF0ZWdvdmVybm1lbnRkZXBvdC5leGFtcGxl\nLmNvbTEsMCoGA1UEAxMjY2Euc3RhdGVnb3Zlcm5tZW50ZGVwb3QuZXhhbXBsZS5j\nb20wHhcNMjEwMjEyMTkzNDAwWhcNMzEwMjEwMTkzNDAwWjCBkzELMAkGA1UEBhMC\nVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28x\nKTAnBgNVBAoTIHN0YXRlZ292ZXJubWVudGRlcG90LmV4YW1wbGUuY29tMSwwKgYD\nVQQDEyNjYS5zdGF0ZWdvdmVybm1lbnRkZXBvdC5leGFtcGxlLmNvbTBZMBMGByqG\nSM49AgEGCCqGSM49AwEHA0IABFUZZpawS00p95FDdw76acTfeeSh6Xs6dy44UoH+\noMpPdKJJX4DlI1J16adRKngOugS9LIQ19xici9FX2w1L/wijbTBrMA4GA1UdDwEB\n/wQEAwIBpjAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/\nBAUwAwEB/zApBgNVHQ4EIgQgWg7NGKqjLchovaX3E959O5QqbEwWfk59hUIU5crD\njgowCgYIKoZIzj0EAwIDSAAwRQIhALHCqQMALeyi4jQvwLp7kgLyFOad3hF0LC5u\nscXmZxoZAiB3j3Y/cq5IXWN5muiw/Rj08niKTNM3Mea4h57NqTXqpg==\n-----END CERTIFICATE-----\n"
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

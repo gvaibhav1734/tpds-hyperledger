@@ -27,7 +27,7 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('CentralGovernmentMSP.admin', 'CentralGovernmentMSP.peer', 'CentralGovernmentMSP.client')"
+                Rule: "OR('CentralGovernmentMSP.admin', 'CentralGovernmentMSP.peer', 'ManufacturerMSP.client')"
             Writers:
                 Type: Signature
                 Rule: "OR('CentralGovernmentMSP.admin', 'CentralGovernmentMSP.client')"
@@ -35,35 +35,50 @@ Organizations:
                 Type: Signature
                 Rule: "OR('CentralGovernmentMSP.admin')"
                 
-    - &Depots
-        Name: DepotsMSP
-        ID: DepotsMSP
-        MSPDir: crypto-config/peerOrganizations/depots.example.com/msp
+    - &StateGovernmentDepot
+        Name: StateGovernmentDepotMSP
+        ID: StateGovernmentDepotMSP
+        MSPDir: crypto-config/peerOrganizations/stategovernmentdepot.example.com/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('DepotsMSP.admin', 'DepotsMSP.peer', 'DepotsMSP.client')"
+                Rule: "OR('StateGovernmentDepotMSP.admin', 'StateGovernmentDepotMSP.peer', 'StateGovernmentDepotMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('DepotsMSP.admin', 'DepotsMSP.client')"
+                Rule: "OR('StateGovernmentDepotMSP.admin', 'StateGovernmentDepotMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('DepotsMSP.admin')"
+                Rule: "OR('StateGovernmentDepotMSP.admin')"
                 
-    - &FPS
-        Name: FPSMSP
-        ID: FPSMSP
-        MSPDir: crypto-config/peerOrganizations/fps.example.com/msp
+    - &StateGovernmentFPS
+        Name: StateGovernmentFPSMSP
+        ID: StateGovernmentFPSMSP
+        MSPDir: crypto-config/peerOrganizations/stategovernmentfps.example.com/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('FPSMSP.admin', 'FPSMSP.peer', 'FPSMSP.client')"
+                Rule: "OR('StateGovernmentFPSMSP.admin', 'StateGovernmentFPSMSP.peer', 'StateGovernmentFPSMSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('FPSMSP.admin', 'FPSMSP.client')"
+                Rule: "OR('StateGovernmentFPSMSP.admin', 'StateGovernmentFPSMSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('FPSMSP.admin')"
+                Rule: "OR('StateGovernmentFPSMSP.admin')"
+
+    - &Other
+        Name: OtherMSP
+        ID: OtherMSP
+        MSPDir: crypto-config/peerOrganizations/other.example.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OtherMSP.admin', 'OtherMSP.peer', 'OtherMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OtherMSP.admin', 'OtherMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OtherMSP.admin')"
 
 Capabilities:
     Channel: &ChannelCapabilities
@@ -153,8 +168,9 @@ Profiles:
             SampleConsortium:
                 Organizations:
                     - *CentralGovernment
-                    - *Depots
-                    - *FPS
+                    - *StateGovernmentDepot
+                    - *StateGovernmentFPS
+                    - *Other
     SupplyChannel:
         Consortium: SampleConsortium
         <<: *ChannelDefaults
@@ -162,8 +178,9 @@ Profiles:
             <<: *ApplicationDefaults
             Organizations:
                 - *CentralGovernment
-                - *Depots
-                - *FPS
+                - *StateGovernmentDepot
+                - *StateGovernmentFPS
+                - *Other
             Capabilities:
                 <<: *ApplicationCapabilities
 

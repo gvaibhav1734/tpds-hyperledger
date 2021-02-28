@@ -1,5 +1,5 @@
 {
-    "name": "supply-chain-fps",
+    "name": "supply-chain-producer",
     "version": "1.0.0",
     "client": {
         "organization": "centralgovernment",
@@ -24,9 +24,9 @@
     },
     "peers": {
         "peer0.centralgovernment.example.com": {
-            "url": "grpcs://localhost:9051",
+            "url": "grpcs://localhost:7051",
             "tlsCACerts": {
-                "pem": "-----BEGIN CERTIFICATE-----\nMIICjTCCAjOgAwIBAgIQAv1kLXVFrI4gttizksv8YzAKBggqhkjOPQQDAjCBkDEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xJjAkBgNVBAoTHWNlbnRyYWxnb3Zlcm5tZW50LmV4YW1wbGUuY29t\nMSwwKgYDVQQDEyN0bHNjYS5jZW50cmFsZ292ZXJubWVudC5leGFtcGxlLmNvbTAe\nFw0yMTAyMjgwMTU0MDBaFw0zMTAyMjYwMTU0MDBaMIGQMQswCQYDVQQGEwJVUzET\nMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5jaXNjbzEmMCQG\nA1UEChMdY2VudHJhbGdvdmVybm1lbnQuZXhhbXBsZS5jb20xLDAqBgNVBAMTI3Rs\nc2NhLmNlbnRyYWxnb3Zlcm5tZW50LmV4YW1wbGUuY29tMFkwEwYHKoZIzj0CAQYI\nKoZIzj0DAQcDQgAEEkfT3jqLJLQTpBefKD2HKMg/PzBemSBpxWLUfJDAt+29PDYT\nzJj/ctzKKZUhxA3px08n4IxT5AsiSQWwX3Im3aNtMGswDgYDVR0PAQH/BAQDAgGm\nMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/\nMCkGA1UdDgQiBCC+o9Df3rvdABFtdnj0LsGJy7K7ZQoksrYTRUPyE+ysoDAKBggq\nhkjOPQQDAgNIADBFAiEAuHuJ+yj1UmqX81hTVtDIkeo9pzt8+Mia6B2OCJDiWAEC\nIHg0fRtF9XFP7sYVkIDKDmWi06FZQpx6b//ti209aleQ\n-----END CERTIFICATE-----\n"
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICjTCCAjSgAwIBAgIRAKnj208uiNolRSCikCGPsaIwCgYIKoZIzj0EAwIwgZAx\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMSYwJAYDVQQKEx1jZW50cmFsZ292ZXJubWVudC5leGFtcGxlLmNv\nbTEsMCoGA1UEAxMjdGxzY2EuY2VudHJhbGdvdmVybm1lbnQuZXhhbXBsZS5jb20w\nHhcNMjEwMjEyMTkzNDAwWhcNMzEwMjEwMTkzNDAwWjCBkDELMAkGA1UEBhMCVVMx\nEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xJjAk\nBgNVBAoTHWNlbnRyYWxnb3Zlcm5tZW50LmV4YW1wbGUuY29tMSwwKgYDVQQDEyN0\nbHNjYS5jZW50cmFsZ292ZXJubWVudC5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEG\nCCqGSM49AwEHA0IABCo/89VcMibVlGGNxa/m9ajcUYSPwJx8kD3+TDsQvL4/O6wi\n3lCk6eqh0TR0MKhoeoi+LUbCaxZSzuntBN+cW8KjbTBrMA4GA1UdDwEB/wQEAwIB\npjAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB\n/zApBgNVHQ4EIgQg4rcnnIWUgepJ1B0qUFBNvfeuL3ktGG5oH820yrj7odwwCgYI\nKoZIzj0EAwIDRwAwRAIgHH2IR0mRBtvg2SfEc37oEJV1mSMmaMkUX6srcBsm9eQC\nIAHd1//2rRt+azk1OD56uybAJETi/Iz2/pWfsdU+VO8Q\n-----END CERTIFICATE-----\n"
             },
             "grpcOptions": {
                 "ssl-target-name-override": "peer0.centralgovernment.example.com",
@@ -36,10 +36,10 @@
     },
     "certificateAuthorities": {
         "ca.centralgovernment.example.com": {
-            "url": "https://localhost:8054",
+            "url": "https://localhost:7054",
             "caName": "ca-centralgovernment",
             "tlsCACerts": {
-                "pem": "-----BEGIN CERTIFICATE-----\nMIIChzCCAi6gAwIBAgIRALq/qxYOPsU6T+qQKWAJ5mUwCgYIKoZIzj0EAwIwgY0x\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMSYwJAYDVQQKEx1jZW50cmFsZ292ZXJubWVudC5leGFtcGxlLmNv\nbTEpMCcGA1UEAxMgY2EuY2VudHJhbGdvdmVybm1lbnQuZXhhbXBsZS5jb20wHhcN\nMjEwMjI4MDE1NDAwWhcNMzEwMjI2MDE1NDAwWjCBjTELMAkGA1UEBhMCVVMxEzAR\nBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xJjAkBgNV\nBAoTHWNlbnRyYWxnb3Zlcm5tZW50LmV4YW1wbGUuY29tMSkwJwYDVQQDEyBjYS5j\nZW50cmFsZ292ZXJubWVudC5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49\nAwEHA0IABFUX/N3tzGddLrLojpPOt4ylz6yqnxwTUc5Yrl4eiDxeyyf6Gm8ir82W\n2sMyX7jekF47bUgDRiR5wesZ9SLTqLWjbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV\nHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV\nHQ4EIgQgA6mNzApaS/TPCQ4KFPWLFxYCYpeKEf2gYmmIgQxH+z0wCgYIKoZIzj0E\nAwIDRwAwRAIgVnVS1GWZCMsnCrhs3F5gZ2AT51KUN8JHMrmuN7VD5h4CIAc/k9zh\nHhAGQ4rSWit4jzTPD7rjIgc4zVzsvDeWma3u\n-----END CERTIFICATE-----\n"
+                "pem": "-----BEGIN CERTIFICATE-----\nMIIChzCCAi6gAwIBAgIRAKJQT707LWtq1V4YBrix5tkwCgYIKoZIzj0EAwIwgY0x\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMSYwJAYDVQQKEx1jZW50cmFsZ292ZXJubWVudC5leGFtcGxlLmNv\nbTEpMCcGA1UEAxMgY2EuY2VudHJhbGdvdmVybm1lbnQuZXhhbXBsZS5jb20wHhcN\nMjEwMjEyMTkzNDAwWhcNMzEwMjEwMTkzNDAwWjCBjTELMAkGA1UEBhMCVVMxEzAR\nBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xJjAkBgNV\nBAoTHWNlbnRyYWxnb3Zlcm5tZW50LmV4YW1wbGUuY29tMSkwJwYDVQQDEyBjYS5j\nZW50cmFsZ292ZXJubWVudC5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49\nAwEHA0IABDmdXX48yn/eEFgXLff6wQrKc7B5YSf8yI9vbwy8Y9i+czXdnQ6kwDg8\nlzSJlyNLMJjCQPts0dNQ4dmof08tY0ajbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV\nHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV\nHQ4EIgQgrLh/Q+kNq+a3apwiK/FkTXQ5FM9n6hXb5PRV3w1PFfMwCgYIKoZIzj0E\nAwIDRwAwRAIgbzYn3AAPvuVlphdsYjYZwCijI2vmG/amM9pdSqIJNS4CIEhrL2RG\njpSnsTlp2L63osJVKFf4hA/5FFVOPMq8nqv1\n-----END CERTIFICATE-----\n"
             },
             "httpOptions": {
                 "verify": false

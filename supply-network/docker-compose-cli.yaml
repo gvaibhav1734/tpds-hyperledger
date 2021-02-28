@@ -8,11 +8,13 @@ version: '2'
 volumes:
   orderer.example.com:
   peer0.centralgovernment.example.com:
-  peer0.depots.example.com:
-  peer0.fps.example.com:
+  peer0.stategovernmentdepot.example.com:
+  peer0.stategovernmentfps.example.com:
+  peer0.other.example.com:
   caCentralGovernment:
-  caDepots:
-  caFPS:
+  caStateGovernmentDepot:
+  caStateGovernmentFPS:
+  caOther:
 
 networks:
   byfn:
@@ -35,22 +37,30 @@ services:
     networks:
       - byfn
       
-  peer0.depots.example.com:
-    container_name: peer0.depots.example.com
+  peer0.stategovernmentdepot.example.com:
+    container_name: peer0.stategovernmentdepot.example.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.depots.example.com
+      service: peer0.stategovernmentdepot.example.com
     networks:
       - byfn
       
-  peer0.fps.example.com:
-    container_name: peer0.fps.example.com
+  peer0.stategovernmentfps.example.com:
+    container_name: peer0.stategovernmentfps.example.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.fps.example.com
+      service: peer0.stategovernmentfps.example.com
     networks:
       - byfn
       
+  peer0.other.example.com:
+    container_name: peer0.other.example.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.other.example.com
+    networks:
+      - byfn
+       
   caCentralGovernment:
     container_name: caCentralGovernment
     extends:
@@ -59,22 +69,29 @@ services:
     networks:
       - byfn
       
-  caDepots:
-    container_name: caDepots
+  caStateGovernmentDepot:
+    container_name: caStateGovernmentDepot
     extends:
       file:  base/docker-compose-base.yaml
-      service: caDepots
+      service: caStateGovernmentDepot
     networks:
       - byfn
       
-  caFPS:
-    container_name: caFPS
+  caStateGovernmentFPS:
+    container_name: caStateGovernmentFPS
     extends:
       file:  base/docker-compose-base.yaml
-      service: caFPS
+      service: caStateGovernmentFPS
     networks:
       - byfn
-      
+
+  caOther:
+    container_name: caOther
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: caOther
+    networks:
+      - byfn      
       
   cli:
     container_name: cli
@@ -87,13 +104,13 @@ services:
       #- FABRIC_LOGGING_SPEC=DEBUG
       - FABRIC_LOGGING_SPEC=INFO
       - CORE_PEER_ID=cli
-      - CORE_PEER_ADDRESS=peer0.fps.example.com:11051
-      - CORE_PEER_LOCALMSPID=FPSMSP
-      - CORE_PEER_TLS_ENABLED=false
-      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/fps.example.com/peers/peer0.fps.example.com/tls/server.crt
-      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/fps.example.com/peers/peer0.fps.example.com/tls/server.key
-      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/fps.example.com/peers/peer0.fps.example.com/tls/ca.crt
-      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/fps.example.com/users/Admin@fps.example.com/msp
+      - CORE_PEER_ADDRESS=peer0.centralgovernment.example.com:7051
+      - CORE_PEER_LOCALMSPID=CentralGovernmentMSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/centralgovernment.example.com/peers/peer0.centralgovernment.example.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/centralgovernment.example.com/peers/peer0.centralgovernment.example.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/centralgovernment.example.com/peers/peer0.centralgovernment.example.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/centralgovernment.example.com/users/Admin@centralgovernment.example.com/msp
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
     volumes:
@@ -105,10 +122,12 @@ services:
     depends_on:
       - orderer.example.com
       - peer0.centralgovernment.example.com
-      - peer0.depots.example.com
-      - peer0.fps.example.com
+      - peer0.stategovernmentdepot.example.com
+      - peer0.stategovernmentfps.example.com
+      - peer0.other.example.com
       - caCentralGovernment
-      - caDepots
-      - caFPS
+      - caStateGovernmentDepot
+      - caStateGovernmentFPS
+      - caOther
     networks:
       - byfn

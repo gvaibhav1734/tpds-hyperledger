@@ -20,14 +20,14 @@ echo "Generating channel artifacts and genesis block 2..."
  cp docker-compose-base-template.yaml docker-compose-base.yaml
  OPTS="-i"
  cd $CURRENT_DIR
- cd ./supply-network/crypto-config/peerOrganizations/fps.example.com/ca/
+ cd ./supply-network/crypto-config/peerOrganizations/centralgovernment.example.com/ca/
  PRIV_KEY=$(ls *_sk)
  cd $CURRENT_DIR
  cd ./supply-network/base
  sed $OPTS "s/CA1_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-base.yaml
  
  cd $CURRENT_DIR
- cd ./supply-network/crypto-config/peerOrganizations/centralgovernment.example.com/ca/
+ cd ./supply-network/crypto-config/peerOrganizations/stategovernmentdepot.example.com/ca/
  PRIV_KEY=$(ls *_sk)
  cd $CURRENT_DIR
  cd ./supply-network/base
@@ -35,7 +35,7 @@ echo "Generating channel artifacts and genesis block 2..."
  
  
  cd $CURRENT_DIR
- cd ./supply-network/crypto-config/peerOrganizations/depots.example.com/ca/
+ cd ./supply-network/crypto-config/peerOrganizations/stategovernmentfps.example.com/ca/
  PRIV_KEY=$(ls *_sk)
  cd $CURRENT_DIR
  cd ./supply-network/base
@@ -43,7 +43,7 @@ echo "Generating channel artifacts and genesis block 2..."
  
  
  cd $CURRENT_DIR
- cd ./supply-network/crypto-config/peerOrganizations/fps.example.com/ca/
+ cd ./supply-network/crypto-config/peerOrganizations/other.example.com/ca/
  PRIV_KEY=$(ls *_sk)
  cd $CURRENT_DIR
  cd ./supply-network/base

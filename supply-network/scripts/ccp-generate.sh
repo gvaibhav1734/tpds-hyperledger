@@ -16,28 +16,39 @@ function json_ccp {
         ./connections/ccp-template.json 
 }
 
+
 ORG=centralgovernment
 ORGMSP=CentralGovernment
-P0PORT=9051
-CAPORT=8054
+P0PORT=7051
+CAPORT=7054
 PEERPEM=./supply-network/crypto-config/peerOrganizations/centralgovernment.example.com/tlsca/tlsca.centralgovernment.example.com-cert.pem
 CAPEM=./supply-network/crypto-config/peerOrganizations/centralgovernment.example.com/ca/ca.centralgovernment.example.com-cert.pem
 
 echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" > ./connections/connection-centralgovernment.json
-ORG=depots
-ORGMSP=Depots
+
+ORG=stategovernmentdepot
+ORGMSP=StateGovernmentDepot
+P0PORT=9051
+CAPORT=8054
+PEERPEM=./supply-network/crypto-config/peerOrganizations/stategovernmentdepot.example.com/tlsca/tlsca.stategovernmentdepot.example.com-cert.pem
+CAPEM=./supply-network/crypto-config/peerOrganizations/stategovernmentdepot.example.com/ca/ca.stategovernmentdepot.example.com-cert.pem
+
+echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" > ./connections/connection-stategovernmentdepot.json
+
+ORG=stategovernmentfps
+ORGMSP=StateGovernmentFPS
 P0PORT=10051
 CAPORT=9054
-PEERPEM=./supply-network/crypto-config/peerOrganizations/depots.example.com/tlsca/tlsca.depots.example.com-cert.pem
-CAPEM=./supply-network/crypto-config/peerOrganizations/depots.example.com/ca/ca.depots.example.com-cert.pem
+PEERPEM=./supply-network/crypto-config/peerOrganizations/stategovernmentfps.example.com/tlsca/tlsca.stategovernmentfps.example.com-cert.pem
+CAPEM=./supply-network/crypto-config/peerOrganizations/stategovernmentfps.example.com/ca/ca.stategovernmentfps.example.com-cert.pem
 
-echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" > ./connections/connection-depots.json
+echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" > ./connections/connection-stategovernmentfps.json
 
-ORG=fps
-ORGMSP=FPS
+ORG=other
+ORGMSP=Other
 P0PORT=11051
 CAPORT=10054
-PEERPEM=./supply-network/crypto-config/peerOrganizations/fps.example.com/tlsca/tlsca.fps.example.com-cert.pem
-CAPEM=./supply-network/crypto-config/peerOrganizations/fps.example.com/ca/ca.fps.example.com-cert.pem
+PEERPEM=./supply-network/crypto-config/peerOrganizations/other.example.com/tlsca/tlsca.other.example.com-cert.pem
+CAPEM=./supply-network/crypto-config/peerOrganizations/other.example.com/ca/ca.other.example.com-cert.pem
 
-echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" > ./connections/connection-fps.json
+echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" > ./connections/connection-other.json
