@@ -11,6 +11,10 @@ echo "Generating channel artifacts and genesis block..."
 ../bin/configtxgen -configPath ./supply-network -profile SupplyOrdererGenesis -outputBlock ./supply-network/channel-artifacts/genesis.block
 ../bin/configtxgen -configPath ./supply-network -profile SupplyChannel -outputCreateChannelTx ./supply-network/channel-artifacts/channel.tx -channelID mychannel
 
+echo "Generating channel artifacts and genesis block 2..."
+../bin/configtxgen -configPath ./supply-network -profile SupplyOrdererGenesis -outputBlock ./supply-network/channel-artifacts/genesis2.block
+../bin/configtxgen -configPath ./supply-network -profile SupplyChannel -outputCreateChannelTx ./supply-network/channel-artifacts/channel2.tx -channelID mychannel2
+
  CURRENT_DIR=$PWD
  cd ./supply-network/base
  cp docker-compose-base-template.yaml docker-compose-base.yaml

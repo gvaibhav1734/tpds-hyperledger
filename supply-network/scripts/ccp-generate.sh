@@ -16,16 +16,6 @@ function json_ccp {
         ./connections/ccp-template.json 
 }
 
-
-ORG=fps
-ORGMSP=Fps
-P0PORT=7051
-CAPORT=7054
-PEERPEM=./supply-network/crypto-config/peerOrganizations/fps.example.com/tlsca/tlsca.fps.example.com-cert.pem
-CAPEM=./supply-network/crypto-config/peerOrganizations/fps.example.com/ca/ca.fps.example.com-cert.pem
-
-echo "$(json_ccp $ORG $ORGMSP $P0PORT $CAPORT $PEERPEM $CAPEM)" > ./connections/connection-fps.json
-
 ORG=centralgovernment
 ORGMSP=CentralGovernment
 P0PORT=9051

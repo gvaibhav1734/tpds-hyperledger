@@ -20,21 +20,6 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.admin')"
 
-    - &Fps
-        Name: FpsMSP
-        ID: FpsMSP
-        MSPDir: crypto-config/peerOrganizations/fps.example.com/msp
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('FpsMSP.admin', 'FpsMSP.peer', 'FpsMSP.client')"
-            Writers:
-                Type: Signature
-                Rule: "OR('FpsMSP.admin', 'FpsMSP.client')"
-            Admins:
-                Type: Signature
-                Rule: "OR('FpsMSP.admin')"
-
     - &CentralGovernment
         Name: CentralGovernmentMSP
         ID: CentralGovernmentMSP
@@ -167,7 +152,6 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *Fps
                     - *CentralGovernment
                     - *Depots
                     - *FPS
@@ -177,7 +161,6 @@ Profiles:
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Fps
                 - *CentralGovernment
                 - *Depots
                 - *FPS
