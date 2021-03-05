@@ -1,0 +1,91 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+networks:
+  tpds_network:
+
+services:
+
+  ca_centralgovernment:
+    image: hyperledger/fabric-ca:$IMAGE_TAG_CA
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-centralgovernment
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_PORT=7054
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ../organizations/fabric-ca/centralgovernment:/etc/hyperledger/fabric-ca-server
+    container_name: ca_centralgovernment
+    networks:
+      - tpds_network
+
+  ca_stategovernmentdepot:
+    image: hyperledger/fabric-ca:$IMAGE_TAG_CA
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-stategovernmentdepot
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_PORT=8054
+    ports:
+      - "8054:8054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ../organizations/fabric-ca/stategovernmentdepot:/etc/hyperledger/fabric-ca-server
+    container_name: ca_stategovernmentdepot
+    networks:
+      - tpds_network
+      
+  ca_stategovernmentfps:
+    image: hyperledger/fabric-ca:$IMAGE_TAG_CA
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-ca_stategovernmentfps
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_PORT=9054
+    ports:
+      - "9054:9054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ../organizations/fabric-ca/ca_stategovernmentfps:/etc/hyperledger/fabric-ca-server
+    container_name: ca_stategovernmentfps
+    networks:
+      - tpds_network
+      
+  ca_other:
+    image: hyperledger/fabric-ca:$IMAGE_TAG_CA
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-ca_other
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_PORT=10054
+    ports:
+      - "10054:10054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ../organizations/fabric-ca/ca_other:/etc/hyperledger/fabric-ca-server
+    container_name: ca_other
+    networks:
+      - tpds_network
+
+  ca_orderer:
+    image: hyperledger/fabric-ca:$IMAGE_TAG_CA
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-orderer
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_PORT=11054
+    ports:
+      - "11054:11054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ../organizations/fabric-ca/ordererOrg:/etc/hyperledger/fabric-ca-server
+    container_name: ca_orderer
+    networks:
+      - tpds_network

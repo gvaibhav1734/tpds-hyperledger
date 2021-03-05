@@ -1,0 +1,7 @@
+Removing orphan container "ca_stategovernmentfps"
+Removing orphan container "ca_other"
+Removing orphan container "ca_orderer"
+Removing orphan container "ca_stategovernmentdepot"
+Removing orphan container "ca_centralgovernment"
+Creating cli ... 
+[1A[2KCreating cli ... [32mdone[0m[1B
