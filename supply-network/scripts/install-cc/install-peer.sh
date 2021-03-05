@@ -12,7 +12,7 @@ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypt
 CORE_PEER_ADDRESS=$PEER.$ORG.example.com:$PORT
 CHANNEL_NAME=mychannel
 CORE_PEER_TLS_ENABLED=true
-echo "Installing for channel 1"
+# echo "Installing for channel 1"
 peer chaincode install -l node -n supcc -v $VERSION -p /opt/gopath/src/github.com/chaincode >&log.txt
 cat log.txt
 # echo "Installing for channel 2"
