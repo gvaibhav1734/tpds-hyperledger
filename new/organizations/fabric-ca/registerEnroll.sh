@@ -10,7 +10,7 @@ function createOrgs {
     echo "##########################################################"
     pwd
     set -x
-    cryptogen generate --config=../cryptogen/crypto-config-centralgovernment.yaml --output="organizations"
+    cryptogen generate --config=./organizations/cryptogen/crypto-config-centralgovernment.yaml --output="organizations"
     res=$?
     set +x
     if [ $res -ne 0 ]; then
@@ -23,7 +23,7 @@ function createOrgs {
     echo "##########################################################"
 
     set -x
-    cryptogen generate --config=../cryptogen/crypto-config-stategovernmentdepot.yaml --output="organizations"
+    cryptogen generate --config=./organizations/cryptogen/crypto-config-stategovernmentdepot.yaml --output="organizations"
     res=$?
     set +x
     if [ $res -ne 0 ]; then
@@ -36,7 +36,7 @@ function createOrgs {
     echo "##########################################################"
 
     set -x
-    cryptogen generate --config=../cryptogen/crypto-config-stategovernmentfps.yaml --output="organizations"
+    cryptogen generate --config=./organizations/cryptogen/crypto-config-stategovernmentfps.yaml --output="organizations"
     res=$?
     set +x
     if [ $res -ne 0 ]; then
@@ -49,7 +49,7 @@ function createOrgs {
     echo "##########################################################"
 
     set -x
-    cryptogen generate --config=../cryptogen/crypto-config-other.yaml --output="organizations"
+    cryptogen generate --config=./organizations/cryptogen/crypto-config-other.yaml --output="organizations"
     res=$?
     set +x
     if [ $res -ne 0 ]; then
@@ -62,13 +62,13 @@ function createOrgs {
     echo "##########################################################"
 
     set -x
-    cryptogen generate --config=../cryptogen/crypto-config-orderer.yaml --output="organizations"
+    cryptogen generate --config=./organizations/cryptogen/crypto-config-orderer.yaml --output="organizations"
     res=$?
     set +x
 }
 
 
-function createcentralgovernment {
+function createCentralgovernment {
 
   echo
 	echo "Enroll the CA admin"
@@ -178,225 +178,225 @@ function createcentralgovernment {
 }
 
 
-function createstategovermentdepot {
+function createStategovernmentdepot {
 
   echo
 	echo "Enroll the CA admin"
   echo
-	mkdir -p organizations/peerOrganizations/stategovermentdepot.example.com/
+	mkdir -p organizations/peerOrganizations/stategovernmentdepot.example.com/
 
-	export FABRIC_CA_CLIENT_HOME=${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/
+	export FABRIC_CA_CLIENT_HOME=${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/
 #  rm -rf $FABRIC_CA_CLIENT_HOME/fabric-ca-client-config.yaml
 #  rm -rf $FABRIC_CA_CLIENT_HOME/msp
 
   set -x
-  fabric-ca-client enroll -u https://admin:adminpw@localhost:8054 --caname ca-stategovermentdepot --tls.certfiles ${PWD}/organizations/fabric-ca/stategovermentdepot/tls-cert.pem
+  fabric-ca-client enroll -u https://admin:adminpw@localhost:8054 --caname ca-stategovernmentdepot --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentdepot/tls-cert.pem
   set +x
 
   echo 'NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: cacerts/localhost-8054-ca-stategovermentdepot.pem
+    Certificate: cacerts/localhost-8054-ca-stategovernmentdepot.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
-    Certificate: cacerts/localhost-8054-ca-stategovermentdepot.pem
+    Certificate: cacerts/localhost-8054-ca-stategovernmentdepot.pem
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
-    Certificate: cacerts/localhost-8054-ca-stategovermentdepot.pem
+    Certificate: cacerts/localhost-8054-ca-stategovernmentdepot.pem
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
-    Certificate: cacerts/localhost-8054-ca-stategovermentdepot.pem
-    OrganizationalUnitIdentifier: orderer' > ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/msp/config.yaml
+    Certificate: cacerts/localhost-8054-ca-stategovernmentdepot.pem
+    OrganizationalUnitIdentifier: orderer' > ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/msp/config.yaml
 
   echo
 	echo "Register peer0"
   echo
   set -x
-	fabric-ca-client register --caname ca-stategovermentdepot --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles ${PWD}/organizations/fabric-ca/stategovermentdepot/tls-cert.pem
+	fabric-ca-client register --caname ca-stategovernmentdepot --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentdepot/tls-cert.pem
   set +x
 
   echo
   echo "Register user"
   echo
   set -x
-  fabric-ca-client register --caname ca-stategovermentdepot --id.name user1 --id.secret user1pw --id.type client --tls.certfiles ${PWD}/organizations/fabric-ca/stategovermentdepot/tls-cert.pem
+  fabric-ca-client register --caname ca-stategovernmentdepot --id.name user1 --id.secret user1pw --id.type client --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentdepot/tls-cert.pem
   set +x
 
   echo
   echo "Register the org admin"
   echo
   set -x
-  fabric-ca-client register --caname ca-stategovermentdepot --id.name stategovermentdepotadmin --id.secret stategovermentdepotadminpw --id.type admin --tls.certfiles ${PWD}/organizations/fabric-ca/stategovermentdepot/tls-cert.pem
+  fabric-ca-client register --caname ca-stategovernmentdepot --id.name stategovernmentdepotadmin --id.secret stategovernmentdepotadminpw --id.type admin --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentdepot/tls-cert.pem
   set +x
 
-	mkdir -p organizations/peerOrganizations/stategovermentdepot.example.com/peers
-  mkdir -p organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com
+	mkdir -p organizations/peerOrganizations/stategovernmentdepot.example.com/peers
+  mkdir -p organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com
 
   echo
   echo "## Generate the peer0 msp"
   echo
   set -x
-	fabric-ca-client enroll -u https://peer0:peer0pw@localhost:8054 --caname ca-stategovermentdepot -M ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/msp --csr.hosts peer0.stategovermentdepot.example.com --tls.certfiles ${PWD}/organizations/fabric-ca/stategovermentdepot/tls-cert.pem
+	fabric-ca-client enroll -u https://peer0:peer0pw@localhost:8054 --caname ca-stategovernmentdepot -M ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/msp --csr.hosts peer0.stategovernmentdepot.example.com --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentdepot/tls-cert.pem
   set +x
 
-  cp ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/msp/config.yaml
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/msp/config.yaml
 
   echo
   echo "## Generate the peer0-tls certificates"
   echo
   set -x
-  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:8054 --caname ca-stategovermentdepot -M ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/tls --enrollment.profile tls --csr.hosts peer0.stategovermentdepot.example.com --csr.hosts localhost --tls.certfiles ${PWD}/organizations/fabric-ca/stategovermentdepot/tls-cert.pem
+  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:8054 --caname ca-stategovernmentdepot -M ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/tls --enrollment.profile tls --csr.hosts peer0.stategovernmentdepot.example.com --csr.hosts localhost --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentdepot/tls-cert.pem
   set +x
 
 
-  cp ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/tls/ca.crt
-  cp ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/tls/signcerts/* ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/tls/server.crt
-  cp ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/tls/keystore/* ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/tls/server.key
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/tls/ca.crt
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/tls/signcerts/* ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/tls/server.crt
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/tls/keystore/* ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/tls/server.key
 
-  mkdir ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/msp/tlscacerts
-  cp ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/msp/tlscacerts/ca.crt
+  mkdir ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/msp/tlscacerts
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/msp/tlscacerts/ca.crt
 
-  mkdir ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/tlsca
-  cp ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/tlsca/tlsca.stategovermentdepot.example.com-cert.pem
+  mkdir ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/tlsca
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/tlsca/tlsca.stategovernmentdepot.example.com-cert.pem
 
-  mkdir ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/ca
-  cp ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/peers/peer0.stategovermentdepot.example.com/msp/cacerts/* ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/ca/ca.stategovermentdepot.example.com-cert.pem
+  mkdir ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/ca
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer0.stategovernmentdepot.example.com/msp/cacerts/* ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/ca/ca.stategovernmentdepot.example.com-cert.pem
 
-  mkdir -p organizations/peerOrganizations/stategovermentdepot.example.com/users
-  mkdir -p organizations/peerOrganizations/stategovermentdepot.example.com/users/User1@stategovermentdepot.example.com
+  mkdir -p organizations/peerOrganizations/stategovernmentdepot.example.com/users
+  mkdir -p organizations/peerOrganizations/stategovernmentdepot.example.com/users/User1@stategovernmentdepot.example.com
 
   echo
   echo "## Generate the user msp"
   echo
   set -x
-	fabric-ca-client enroll -u https://user1:user1pw@localhost:8054 --caname ca-stategovermentdepot -M ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/users/User1@stategovermentdepot.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/stategovermentdepot/tls-cert.pem
+	fabric-ca-client enroll -u https://user1:user1pw@localhost:8054 --caname ca-stategovernmentdepot -M ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/users/User1@stategovernmentdepot.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentdepot/tls-cert.pem
   set +x
 
-  cp ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/users/User1@stategovermentdepot.example.com/msp/config.yaml
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/users/User1@stategovernmentdepot.example.com/msp/config.yaml
 
-  mkdir -p organizations/peerOrganizations/stategovermentdepot.example.com/users/Admin@stategovermentdepot.example.com
+  mkdir -p organizations/peerOrganizations/stategovernmentdepot.example.com/users/Admin@stategovernmentdepot.example.com
 
   echo
   echo "## Generate the org admin msp"
   echo
   set -x
-	fabric-ca-client enroll -u https://stategovermentdepotadmin:stategovermentdepotadminpw@localhost:8054 --caname ca-stategovermentdepot -M ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/users/Admin@stategovermentdepot.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/stategovermentdepot/tls-cert.pem
+	fabric-ca-client enroll -u https://stategovernmentdepotadmin:stategovernmentdepotadminpw@localhost:8054 --caname ca-stategovernmentdepot -M ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/users/Admin@stategovernmentdepot.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentdepot/tls-cert.pem
   set +x
 
-  cp ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/stategovermentdepot.example.com/users/Admin@stategovermentdepot.example.com/msp/config.yaml
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/users/Admin@stategovernmentdepot.example.com/msp/config.yaml
 
 }
 
-function createstategovermentfps {
+function createStategovernmentfps {
 
   echo
 	echo "Enroll the CA admin"
   echo
-	mkdir -p organizations/peerOrganizations/createstategovermentfps.example.com/
+	mkdir -p organizations/peerOrganizations/stategovernmentfps.example.com/
 
-	export FABRIC_CA_CLIENT_HOME=${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/
+	export FABRIC_CA_CLIENT_HOME=${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/
 #  rm -rf $FABRIC_CA_CLIENT_HOME/fabric-ca-client-config.yaml
 #  rm -rf $FABRIC_CA_CLIENT_HOME/msp
 
   set -x
-  fabric-ca-client enroll -u https://admin:adminpw@localhost:9054 --caname ca-createstategovermentfps --tls.certfiles ${PWD}/organizations/fabric-ca/createstategovermentfps/tls-cert.pem
+  fabric-ca-client enroll -u https://admin:adminpw@localhost:9054 --caname ca-stategovernmentfps --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentfps/tls-cert.pem
   set +x
 
   echo 'NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: cacerts/localhost-9054-ca-createstategovermentfps.pem
+    Certificate: cacerts/localhost-9054-ca-stategovernmentfps.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
-    Certificate: cacerts/localhost-9054-ca-createstategovermentfps.pem
+    Certificate: cacerts/localhost-9054-ca-stategovernmentfps.pem
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
-    Certificate: cacerts/localhost-9054-ca-createstategovermentfps.pem
+    Certificate: cacerts/localhost-9054-ca-stategovernmentfps.pem
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
-    Certificate: cacerts/localhost-9054-ca-createstategovermentfps.pem
-    OrganizationalUnitIdentifier: orderer' > ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/msp/config.yaml
+    Certificate: cacerts/localhost-9054-ca-stategovernmentfps.pem
+    OrganizationalUnitIdentifier: orderer' > ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/msp/config.yaml
 
   echo
 	echo "Register peer0"
   echo
   set -x
-	fabric-ca-client register --caname ca-createstategovermentfps --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles ${PWD}/organizations/fabric-ca/createstategovermentfps/tls-cert.pem
+	fabric-ca-client register --caname ca-stategovernmentfps --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentfps/tls-cert.pem
   set +x
 
   echo
   echo "Register user"
   echo
   set -x
-  fabric-ca-client register --caname ca-createstategovermentfps --id.name user1 --id.secret user1pw --id.type client --tls.certfiles ${PWD}/organizations/fabric-ca/createstategovermentfps/tls-cert.pem
+  fabric-ca-client register --caname ca-stategovernmentfps --id.name user1 --id.secret user1pw --id.type client --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentfps/tls-cert.pem
   set +x
 
   echo
   echo "Register the org admin"
   echo
   set -x
-  fabric-ca-client register --caname ca-createstategovermentfps --id.name createstategovermentfpsadmin --id.secret createstategovermentfpsadminpw --id.type admin --tls.certfiles ${PWD}/organizations/fabric-ca/createstategovermentfps/tls-cert.pem
+  fabric-ca-client register --caname ca-stategovernmentfps --id.name stategovernmentfpsadmin --id.secret stategovernmentfpsadminpw --id.type admin --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentfps/tls-cert.pem
   set +x
 
-	mkdir -p organizations/peerOrganizations/createstategovermentfps.example.com/peers
-  mkdir -p organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com
+	mkdir -p organizations/peerOrganizations/stategovernmentfps.example.com/peers
+  mkdir -p organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com
 
   echo
   echo "## Generate the peer0 msp"
   echo
   set -x
-	fabric-ca-client enroll -u https://peer0:peer0pw@localhost:9054 --caname ca-createstategovermentfps -M ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/msp --csr.hosts peer0.createstategovermentfps.example.com --tls.certfiles ${PWD}/organizations/fabric-ca/createstategovermentfps/tls-cert.pem
+	fabric-ca-client enroll -u https://peer0:peer0pw@localhost:9054 --caname ca-stategovernmentfps -M ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/msp --csr.hosts peer0.stategovernmentfps.example.com --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentfps/tls-cert.pem
   set +x
 
-  cp ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/msp/config.yaml
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/msp/config.yaml
 
   echo
   echo "## Generate the peer0-tls certificates"
   echo
   set -x
-  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:9054 --caname ca-createstategovermentfps -M ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/tls --enrollment.profile tls --csr.hosts peer0.createstategovermentfps.example.com --csr.hosts localhost --tls.certfiles ${PWD}/organizations/fabric-ca/createstategovermentfps/tls-cert.pem
+  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:9054 --caname ca-stategovernmentfps -M ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/tls --enrollment.profile tls --csr.hosts peer0.stategovernmentfps.example.com --csr.hosts localhost --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentfps/tls-cert.pem
   set +x
 
 
-  cp ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/tls/ca.crt
-  cp ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/tls/signcerts/* ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/tls/server.crt
-  cp ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/tls/keystore/* ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/tls/server.key
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/tls/ca.crt
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/tls/signcerts/* ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/tls/server.crt
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/tls/keystore/* ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/tls/server.key
 
-  mkdir ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/msp/tlscacerts
-  cp ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/msp/tlscacerts/ca.crt
+  mkdir ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/msp/tlscacerts
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/msp/tlscacerts/ca.crt
 
-  mkdir ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/tlsca
-  cp ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/tlsca/tlsca.createstategovermentfps.example.com-cert.pem
+  mkdir ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/tlsca
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/tlsca/tlsca.stategovernmentfps.example.com-cert.pem
 
-  mkdir ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/ca
-  cp ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/peers/peer0.createstategovermentfps.example.com/msp/cacerts/* ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/ca/ca.createstategovermentfps.example.com-cert.pem
+  mkdir ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/ca
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/msp/cacerts/* ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/ca/ca.stategovernmentfps.example.com-cert.pem
 
-  mkdir -p organizations/peerOrganizations/createstategovermentfps.example.com/users
-  mkdir -p organizations/peerOrganizations/createstategovermentfps.example.com/users/User1@createstategovermentfps.example.com
+  mkdir -p organizations/peerOrganizations/stategovernmentfps.example.com/users
+  mkdir -p organizations/peerOrganizations/stategovernmentfps.example.com/users/User1@stategovernmentfps.example.com
 
   echo
   echo "## Generate the user msp"
   echo
   set -x
-	fabric-ca-client enroll -u https://user1:user1pw@localhost:9054 --caname ca-createstategovermentfps -M ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/users/User1@createstategovermentfps.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/createstategovermentfps/tls-cert.pem
+	fabric-ca-client enroll -u https://user1:user1pw@localhost:9054 --caname ca-stategovernmentfps -M ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/users/User1@stategovernmentfps.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentfps/tls-cert.pem
   set +x
 
-  cp ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/users/User1@createstategovermentfps.example.com/msp/config.yaml
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/users/User1@stategovernmentfps.example.com/msp/config.yaml
 
-  mkdir -p organizations/peerOrganizations/createstategovermentfps.example.com/users/Admin@createstategovermentfps.example.com
+  mkdir -p organizations/peerOrganizations/stategovernmentfps.example.com/users/Admin@stategovernmentfps.example.com
 
   echo
   echo "## Generate the org admin msp"
   echo
   set -x
-	fabric-ca-client enroll -u https://createstategovermentfpsadmin:createstategovermentfpsadminpw@localhost:9054 --caname ca-createstategovermentfps -M ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/users/Admin@createstategovermentfps.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/createstategovermentfps/tls-cert.pem
+	fabric-ca-client enroll -u https://stategovernmentfpsadmin:stategovernmentfpsadminpw@localhost:9054 --caname ca-stategovernmentfps -M ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/users/Admin@stategovernmentfps.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/stategovernmentfps/tls-cert.pem
   set +x
 
-  cp ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/createstategovermentfps.example.com/users/Admin@createstategovermentfps.example.com/msp/config.yaml
+  cp ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/users/Admin@stategovernmentfps.example.com/msp/config.yaml
 
 }
 
-function createother {
+function createOther {
 
   echo
 	echo "Enroll the CA admin"
@@ -596,8 +596,8 @@ function createOrderer {
 
 }
 
-createOrgs
-createcentralgovernment
-createstategovernmentdepot
-createstategovernmentfps
-createother
+# createOrgs
+# createcentralgovernment
+# createstategovernmentdepot
+# createstategovernmentfps
+# createother

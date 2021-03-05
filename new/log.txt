@@ -1,7 +1,7 @@
-Removing orphan container "ca_stategovernmentfps"
-Removing orphan container "ca_other"
-Removing orphan container "ca_orderer"
-Removing orphan container "ca_stategovernmentdepot"
-Removing orphan container "ca_centralgovernment"
-Creating cli ... 
-[1A[2KCreating cli ... [32mdone[0m[1B
+Removing orphan container "cli"
+Creating ca_stategovernmentdepot ... 
+Creating ca_centralgovernment    ... 
+Creating ca_stategovernmentfps   ... 
+Creating ca_orderer              ... 
+Creating ca_other                ... 
+[5A[2KCreating ca_stategovernmentdepot ... [32mdone[0m[5B[4A[2KCreating ca_centralgovernment    ... [32mdone[0m[4B[2A[2KCreating ca_other                ... [32mdone[0m[2B[3A[2KCreating ca_stategovernmentfps   ... [32mdone[0m[3B[1A[2KCreating ca_orderer              ... [32mdone[0m[1B
