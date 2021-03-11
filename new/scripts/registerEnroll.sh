@@ -79,6 +79,7 @@ function createCentralgovernment {
 #  rm -rf $FABRIC_CA_CLIENT_HOME/fabric-ca-client-config.yaml
 #  rm -rf $FABRIC_CA_CLIENT_HOME/msp
 
+  ls /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/fabric-ca/centralgovernment/
   set -x
   fabric-ca-client enroll -u https://admin:adminpw@localhost:7054 --caname ca-centralgovernment --tls.certfiles ${PWD}/organizations/fabric-ca/centralgovernment/tls-cert.pem
   set +x
@@ -401,107 +402,107 @@ function createOther {
   echo
 	echo "Enroll the CA admin"
   echo
-	mkdir -p organizations/peerOrganizations/createother.example.com/
+	mkdir -p organizations/peerOrganizations/other.example.com/
 
-	export FABRIC_CA_CLIENT_HOME=${PWD}/organizations/peerOrganizations/createother.example.com/
+	export FABRIC_CA_CLIENT_HOME=${PWD}/organizations/peerOrganizations/other.example.com/
 #  rm -rf $FABRIC_CA_CLIENT_HOME/fabric-ca-client-config.yaml
 #  rm -rf $FABRIC_CA_CLIENT_HOME/msp
 
   set -x
-  fabric-ca-client enroll -u https://admin:adminpw@localhost:10054 --caname ca-createother --tls.certfiles ${PWD}/organizations/fabric-ca/createother/tls-cert.pem
+  fabric-ca-client enroll -u https://admin:adminpw@localhost:10054 --caname ca-other --tls.certfiles ${PWD}/organizations/fabric-ca/other/tls-cert.pem
   set +x
 
   echo 'NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: cacerts/ca.createother.example.com-cert.pem
+    Certificate: cacerts/ca.other.example.com-cert.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
-    Certificate: cacerts/ca.createother.example.com-cert.pem
+    Certificate: cacerts/ca.other.example.com-cert.pem
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
-    Certificate: cacerts/ca.createother.example.com-cert.pem
+    Certificate: cacerts/ca.other.example.com-cert.pem
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
-    Certificate: cacerts/ca.createother.example.com-cert.pem
-    OrganizationalUnitIdentifier: orderer' > ${PWD}/organizations/peerOrganizations/createother.example.com/msp/config.yaml
+    Certificate: cacerts/ca.other.example.com-cert.pem
+    OrganizationalUnitIdentifier: orderer' > ${PWD}/organizations/peerOrganizations/other.example.com/msp/config.yaml
 
   echo
 	echo "Register peer0"
   echo
   set -x
-	fabric-ca-client register --caname ca-createother --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles ${PWD}/organizations/fabric-ca/createother/tls-cert.pem
+	fabric-ca-client register --caname ca-other --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles ${PWD}/organizations/fabric-ca/other/tls-cert.pem
   set +x
 
   echo
   echo "Register user"
   echo
   set -x
-  fabric-ca-client register --caname ca-createother --id.name user1 --id.secret user1pw --id.type client --tls.certfiles ${PWD}/organizations/fabric-ca/createother/tls-cert.pem
+  fabric-ca-client register --caname ca-other --id.name user1 --id.secret user1pw --id.type client --tls.certfiles ${PWD}/organizations/fabric-ca/other/tls-cert.pem
   set +x
 
   echo
   echo "Register the org admin"
   echo
   set -x
-  fabric-ca-client register --caname ca-createother --id.name createotheradmin --id.secret createotheradminpw --id.type admin --tls.certfiles ${PWD}/organizations/fabric-ca/createother/tls-cert.pem
+  fabric-ca-client register --caname ca-other --id.name otheradmin --id.secret otheradminpw --id.type admin --tls.certfiles ${PWD}/organizations/fabric-ca/other/tls-cert.pem
   set +x
 
-	mkdir -p organizations/peerOrganizations/createother.example.com/peers
-  mkdir -p organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com
+	mkdir -p organizations/peerOrganizations/other.example.com/peers
+  mkdir -p organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com
 
   echo
   echo "## Generate the peer0 msp"
   echo
   set -x
-	fabric-ca-client enroll -u https://peer0:peer0pw@localhost:10054 --caname ca-createother -M ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/msp --csr.hosts peer0.createother.example.com --tls.certfiles ${PWD}/organizations/fabric-ca/createother/tls-cert.pem
+	fabric-ca-client enroll -u https://peer0:peer0pw@localhost:10054 --caname ca-other -M ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/msp --csr.hosts peer0.other.example.com --tls.certfiles ${PWD}/organizations/fabric-ca/other/tls-cert.pem
   set +x
 
-  cp ${PWD}/organizations/peerOrganizations/createother.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/msp/config.yaml
+  cp ${PWD}/organizations/peerOrganizations/other.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/msp/config.yaml
 
   echo
   echo "## Generate the peer0-tls certificates"
   echo
   set -x
-  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:10054 --caname ca-createother -M ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/tls --enrollment.profile tls --csr.hosts peer0.createother.example.com --csr.hosts localhost --tls.certfiles ${PWD}/organizations/fabric-ca/createother/tls-cert.pem
+  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:10054 --caname ca-other -M ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/tls --enrollment.profile tls --csr.hosts peer0.other.example.com --csr.hosts localhost --tls.certfiles ${PWD}/organizations/fabric-ca/other/tls-cert.pem
   set +x
 
 
-  cp ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/tls/ca.crt
-  cp ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/tls/signcerts/* ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/tls/server.crt
-  cp ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/tls/keystore/* ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/tls/server.key
+  cp ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/tls/ca.crt
+  cp ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/tls/signcerts/* ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/tls/server.crt
+  cp ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/tls/keystore/* ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/tls/server.key
 
-  mkdir ${PWD}/organizations/peerOrganizations/createother.example.com/msp/tlscacerts
-  cp ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/createother.example.com/msp/tlscacerts/ca.crt
+  mkdir ${PWD}/organizations/peerOrganizations/other.example.com/msp/tlscacerts
+  cp ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/other.example.com/msp/tlscacerts/ca.crt
 
-  mkdir ${PWD}/organizations/peerOrganizations/createother.example.com/tlsca
-  cp ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/createother.example.com/tlsca/tlsca.createother.example.com-cert.pem
+  mkdir ${PWD}/organizations/peerOrganizations/other.example.com/tlsca
+  cp ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/other.example.com/tlsca/tlsca.other.example.com-cert.pem
 
-  mkdir ${PWD}/organizations/peerOrganizations/createother.example.com/ca
-  cp ${PWD}/organizations/peerOrganizations/createother.example.com/peers/peer0.createother.example.com/msp/cacerts/* ${PWD}/organizations/peerOrganizations/createother.example.com/ca/ca.createother.example.com-cert.pem
+  mkdir ${PWD}/organizations/peerOrganizations/other.example.com/ca
+  cp ${PWD}/organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/msp/cacerts/* ${PWD}/organizations/peerOrganizations/other.example.com/ca/ca.other.example.com-cert.pem
 
-  mkdir -p organizations/peerOrganizations/createother.example.com/users
-  mkdir -p organizations/peerOrganizations/createother.example.com/users/User1@createother.example.com
+  mkdir -p organizations/peerOrganizations/other.example.com/users
+  mkdir -p organizations/peerOrganizations/other.example.com/users/User1@other.example.com
 
   echo
   echo "## Generate the user msp"
   echo
   set -x
-	fabric-ca-client enroll -u https://user1:user1pw@localhost:10054 --caname ca-createother -M ${PWD}/organizations/peerOrganizations/createother.example.com/users/User1@createother.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/createother/tls-cert.pem
+	fabric-ca-client enroll -u https://user1:user1pw@localhost:10054 --caname ca-other -M ${PWD}/organizations/peerOrganizations/other.example.com/users/User1@other.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/other/tls-cert.pem
   set +x
 
-  cp ${PWD}/organizations/peerOrganizations/createother.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/createother.example.com/users/User1@createother.example.com/msp/config.yaml
+  cp ${PWD}/organizations/peerOrganizations/other.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/other.example.com/users/User1@other.example.com/msp/config.yaml
 
-  mkdir -p organizations/peerOrganizations/createother.example.com/users/Admin@createother.example.com
+  mkdir -p organizations/peerOrganizations/other.example.com/users/Admin@other.example.com
 
   echo
   echo "## Generate the org admin msp"
   echo
   set -x
-	fabric-ca-client enroll -u https://createotheradmin:createotheradminpw@localhost:10054 --caname ca-createother -M ${PWD}/organizations/peerOrganizations/createother.example.com/users/Admin@createother.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/createother/tls-cert.pem
+	fabric-ca-client enroll -u https://otheradmin:otheradminpw@localhost:10054 --caname ca-other -M ${PWD}/organizations/peerOrganizations/other.example.com/users/Admin@other.example.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/other/tls-cert.pem
   set +x
 
-  cp ${PWD}/organizations/peerOrganizations/createother.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/createother.example.com/users/Admin@createother.example.com/msp/config.yaml
+  cp ${PWD}/organizations/peerOrganizations/other.example.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/other.example.com/users/Admin@other.example.com/msp/config.yaml
 
 }
 
@@ -523,7 +524,7 @@ function createOrderer {
   echo 'NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: cacerts/ca.orderer.example.com-cert.pem
+    Certificate: cacerts/ca.orderer.com-cert.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
     Certificate: cacerts/ca.orderer.example.com-cert.pem

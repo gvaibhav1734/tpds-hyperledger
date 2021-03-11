@@ -1,4 +1,4 @@
 /channel-artifacts
-/fabric-ca/*
+/fabric-ca
 !/fabric-ca/*.sh
 log.txt
