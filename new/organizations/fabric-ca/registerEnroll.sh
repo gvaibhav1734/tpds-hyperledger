@@ -86,16 +86,16 @@ function createCentralgovernment {
   echo 'NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: cacerts/localhost-7054-ca-centralgovernment.pem
+    Certificate: cacerts/ca.centralgovernment.example.com-cert.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
-    Certificate: cacerts/localhost-7054-ca-centralgovernment.pem
+    Certificate: cacerts/ca.centralgovernment.example.com-cert.pem
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
-    Certificate: cacerts/localhost-7054-ca-centralgovernment.pem
+    Certificate: cacerts/ca.centralgovernment.example.com-cert.pem
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
-    Certificate: cacerts/localhost-7054-ca-centralgovernment.pem
+    Certificate: cacerts/ca.centralgovernment.example.com-cert.pem
     OrganizationalUnitIdentifier: orderer' > ${PWD}/organizations/peerOrganizations/centralgovernment.example.com/msp/config.yaml
 
   echo
@@ -196,16 +196,16 @@ function createStategovernmentdepot {
   echo 'NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: cacerts/localhost-8054-ca-stategovernmentdepot.pem
+    Certificate: cacerts/ca.stategovernmentdepot.example.com-cert.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
-    Certificate: cacerts/localhost-8054-ca-stategovernmentdepot.pem
+    Certificate: cacerts/ca.stategovernmentdepot.example.com-cert.pem
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
-    Certificate: cacerts/localhost-8054-ca-stategovernmentdepot.pem
+    Certificate: cacerts/ca.stategovernmentdepot.example.com-cert.pem
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
-    Certificate: cacerts/localhost-8054-ca-stategovernmentdepot.pem
+    Certificate: cacerts/ca.stategovernmentdepot.example.com-cert.pem
     OrganizationalUnitIdentifier: orderer' > ${PWD}/organizations/peerOrganizations/stategovernmentdepot.example.com/msp/config.yaml
 
   echo
@@ -305,16 +305,16 @@ function createStategovernmentfps {
   echo 'NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: cacerts/localhost-9054-ca-stategovernmentfps.pem
+    Certificate: cacerts/ca.stategovernmentfps.example.com-cert.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
-    Certificate: cacerts/localhost-9054-ca-stategovernmentfps.pem
+    Certificate: cacerts/ca.stategovernmentfps.example.com-cert.pem
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
-    Certificate: cacerts/localhost-9054-ca-stategovernmentfps.pem
+    Certificate: cacerts/ca.stategovernmentfps.example.com-cert.pem
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
-    Certificate: cacerts/localhost-9054-ca-stategovernmentfps.pem
+    Certificate: cacerts/ca.stategovernmentfps.example.com-cert.pem
     OrganizationalUnitIdentifier: orderer' > ${PWD}/organizations/peerOrganizations/stategovernmentfps.example.com/msp/config.yaml
 
   echo
@@ -414,16 +414,16 @@ function createOther {
   echo 'NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: cacerts/localhost-10054-ca-createother.pem
+    Certificate: cacerts/ca.createother.example.com-cert.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
-    Certificate: cacerts/localhost-10054-ca-createother.pem
+    Certificate: cacerts/ca.createother.example.com-cert.pem
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
-    Certificate: cacerts/localhost-10054-ca-createother.pem
+    Certificate: cacerts/ca.createother.example.com-cert.pem
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
-    Certificate: cacerts/localhost-10054-ca-createother.pem
+    Certificate: cacerts/ca.createother.example.com-cert.pem
     OrganizationalUnitIdentifier: orderer' > ${PWD}/organizations/peerOrganizations/createother.example.com/msp/config.yaml
 
   echo
@@ -523,16 +523,16 @@ function createOrderer {
   echo 'NodeOUs:
   Enable: true
   ClientOUIdentifier:
-    Certificate: cacerts/localhost-11054-ca-orderer.pem
+    Certificate: cacerts/ca.orderer.example.com-cert.pem
     OrganizationalUnitIdentifier: client
   PeerOUIdentifier:
-    Certificate: cacerts/localhost-11054-ca-orderer.pem
+    Certificate: cacerts/ca.orderer.example.com-cert.pem
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
-    Certificate: cacerts/localhost-11054-ca-orderer.pem
+    Certificate: cacerts/ca.orderer.example.com-cert.pem
     OrganizationalUnitIdentifier: admin
   OrdererOUIdentifier:
-    Certificate: cacerts/localhost-11054-ca-orderer.pem
+    Certificate: cacerts/ca.orderer.example.com-cert.pem
     OrganizationalUnitIdentifier: orderer' > ${PWD}/organizations/ordererOrganizations/example.com/msp/config.yaml
 
 

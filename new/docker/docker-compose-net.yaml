@@ -44,7 +44,7 @@ services:
         - ../system-genesis-block/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
         - ../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/var/hyperledger/orderer/msp
         - ../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/:/var/hyperledger/orderer/tls
-        - orderer.example.com:/var/hyperledger/production/orderer
+        - ../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
     networks:
@@ -82,7 +82,7 @@ services:
         - /var/run/:/host/var/run/
         - ../organizations/peerOrganizations/centralgovernment.example.com/peers/peer0.centralgovernment.example.com/msp:/etc/hyperledger/fabric/msp
         - ../organizations/peerOrganizations/centralgovernment.example.com/peers/peer0.centralgovernment.example.com/tls:/etc/hyperledger/fabric/tls
-        - peer0.centralgovernment.example.com:/var/hyperledger/production
+        - ../organizations/peerOrganizations/centralgovernment.example.com/peers/peer0.centralgovernment.example.com/:/var/hyperledger/production
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
     ports:
@@ -157,7 +157,7 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.stategovernmentfps.example.com:10051
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.stategovernmentfps.example.com:10051
-      - CORE_PEER_LOCALMSPID=stategovernmentfps
+      - CORE_PEER_LOCALMSPID=stategovernmentfpsMSP
     volumes:
         - /var/run/:/host/var/run/
         - ../organizations/peerOrganizations/stategovernmentfps.example.com/peers/peer0.stategovernmentfps.example.com/msp:/etc/hyperledger/fabric/msp
@@ -197,7 +197,7 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.other.example.com:11051
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.other.example.com:11051
-      - CORE_PEER_LOCALMSPID=other
+      - CORE_PEER_LOCALMSPID=otherMSP
     volumes:
         - /var/run/:/host/var/run/
         - ../organizations/peerOrganizations/other.example.com/peers/peer0.other.example.com/msp:/etc/hyperledger/fabric/msp
