@@ -1,1 +1,0 @@
-./supply-network/scripts/install-cc/instanciate.sh: line 11: peer: command not found

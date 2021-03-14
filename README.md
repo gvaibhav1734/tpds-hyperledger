@@ -7,19 +7,19 @@ TPDS Supply chain proof of concept in Hyperledger Fabric. Network with four orgs
 https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html
 
 2. Donwload fabric binaries and samples:
-`curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.3`
+`curl -sSL http://bit.ly/2ysbOFE | bash -s`
 
-3. Go to fabric samples:
-`cd fabric-samples`
-
-4. Download the template:
+3. Download the tpds:
 `git clone https://github.com/gvaibhav1734/tpds-hyperledger`
 
-6. Go to 
-`tpds-hyperledger`
+4. Go to tpds folder:
+`cd tpds-hyperledger`
 
-5. Install node-js dependencies
-`./network.sh install`
+6. Go to network folder
+`cd network`
+
+5. Start the network
+`./start.sh`
 
 
 
