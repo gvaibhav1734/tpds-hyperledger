@@ -15,7 +15,7 @@ const { buildCCPcentralgovernment, buildCCPstategovernmentdepot, buildCCPstatele
 
 // TODO : Update variables as needed
 const channelName = 'mychannel';
-const chaincodeName = 'basic';
+const chaincodeName = 'tpds';
 const mspOrg1 = 'centralgovernmentMSP';
 const walletPath = path.join(__dirname, 'wallet');
 const org1UserId = 'appUser';
@@ -178,11 +178,11 @@ async function main() {
 			}
 
             console.log('\n--> Evaluate Transaction: GetAllAssets, function returns all the current assets on the ledger');
-			let result = await contract.evaluateTransaction('GetAllAssets');
+			result = await contract.evaluateTransaction('GetAllAssets');
 			console.log(`*** Result: ${prettyJSONString(result.toString())}`);
 
             console.log('\n--> Evaluate Transaction: VerifyLeakage, function returns all the current assets on the ledger that are suspected of leakage');
-			let result = await contract.evaluateTransaction('VerifyLeakage');
+			result = await contract.evaluateTransaction('VerifyLeakage');
 			console.log(`*** Result: ${prettyJSONString(result.toString())}`);
 
 		} finally {

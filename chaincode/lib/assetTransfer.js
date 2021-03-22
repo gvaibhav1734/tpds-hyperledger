@@ -15,7 +15,7 @@ class AssetTransfer extends Contract {
             // {
             //     ID: '1001',
             //     Quantity: 50,
-            //     Owner: 'CG',
+            //     Owner: 'Central Government',
             //     PrevOwners: [],
             //     State: 1,
             //     SendTime: 0,

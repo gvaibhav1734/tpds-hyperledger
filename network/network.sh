@@ -23,13 +23,13 @@ function checkPrereqs() {
   ## Check if your have cloned the peer binaries and configuration files.
   peer version > /dev/null 2>&1
 
-#   if [[ $? -ne 0 || ! -d "../config" ]]; then
-#     errorln "Peer binary and configuration files not found.."
-#     errorln
-#     errorln "Follow the instructions in the Fabric docs to install the Fabric Binaries:"
-#     errorln "https://hyperledger-fabric.readthedocs.io/en/latest/install.html"
-#     exit 1
-#   fi
+  if [[ $? -ne 0 || ! -d "./configtx" ]]; then
+    errorln "Peer binary and configuration files not found.."
+    errorln
+    errorln "Follow the instructions in the Fabric docs to install the Fabric Binaries:"
+    errorln "https://hyperledger-fabric.readthedocs.io/en/latest/install.html"
+    exit 1
+  fi
   # use the fabric tools container to see if the samples and binaries match your
   # docker images
   LOCAL_VERSION=$(peer version | sed -ne 's/ Version: //p')
