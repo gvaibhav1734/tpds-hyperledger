@@ -18,7 +18,7 @@ const channelName = 'mychannel';
 const chaincodeName = 'tpds';
 const mspOrg1 = 'centralgovernmentMSP';
 const walletPath = path.join(__dirname, 'wallet');
-const org1UserId = 'appUser';
+const org1UserId = 'user3';
 
 function prettyJSONString(inputString) {
 	return JSON.stringify(JSON.parse(inputString), null, 2);
@@ -92,7 +92,7 @@ async function main() {
 		// In a real application this would be done as the backend server session is setup for
 		// a user that has been verified.
 		const gateway = new Gateway();
-
+		var result;
 		try {
 			// setup the gateway instance
 			// The user will now be able to create connections to the fabric network and be able to
