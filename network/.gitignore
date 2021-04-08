@@ -9,6 +9,13 @@ organizations/fabric-ca/centralgovernment/*
 organizations/fabric-ca/stategovernmentdepot/*
 organizations/fabric-ca/statelevelfps/*
 organizations/fabric-ca/other/*
+
+!organizations/fabric-ca/ordererOrg/*.yaml
+!organizations/fabric-ca/centralgovernment/*.yaml
+!organizations/fabric-ca/stategovernmentdepot/*.yaml
+!organizations/fabric-ca/statelevelfps/*.yaml
+!organizations/fabric-ca/other/*.yaml
+
 organizations/ordererOrganizations/*
 organizations/peerOrganizations/*
 system-genesis-block/*
