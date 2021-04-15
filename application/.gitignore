@@ -12,3 +12,8 @@ package-lock.json
 
 wallet
 !wallet/.gitkeep
+
+wallet-cg
+wallet-sgd
+wallet-slf
+wallet-o

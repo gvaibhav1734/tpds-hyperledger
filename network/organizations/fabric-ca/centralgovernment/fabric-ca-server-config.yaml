@@ -246,6 +246,12 @@ affiliations:
    centralgovernment:
       - department1
       - department2
+   stategovernmentdepot:
+      - department1
+   statelevelfps:
+      - department1
+   other:
+      - department1
 
 #############################################################################
 #  Signing section

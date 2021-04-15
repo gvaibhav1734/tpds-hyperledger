@@ -15,35 +15,60 @@ https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html
 4. Go to tpds folder:
 `cd tpds-hyperledger`
 
-6. Go to network folder
+5. Go to network folder
 `cd network`
 
-5. Start the network
+6. Set PATH environment variable to include fabric-samples/bin from the repo cloned in step 2.
+
+7. Start the network
 `./start.sh`
 
 
 
-# Start the network
-1. Generate the crypto material and start the network
-`./network.sh start`
-This will create the crypto material for all the orgs, start the network and register it's admins and users. Then will start the API at localhost:3000
+# Generate identities
+1. Go to application folder (from the tpds-hyperledger folder)
+`cd application`
+
+2. Run createIdentities.js
+`node createIdentities.js`
+
+3. If you stop and restart the fabric network, you will need to regenerate the identities. Delete existing wallet folders, change user names under all orgs and run the file according to step 2
 
 
-# Re-start the API server
-`npm start`
+# Test the chaincode
+1. Go to application folder (from the tpds-hyperledger folder)
+`cd application`
+
+2. If you modified the name of user identity generated above, correspondingly modify the user name in the testApp.js file.
+
+3. Run test file
+`node testApp.js`
+
+# Start server
+1. Go to application folder (from the tpds-hyperledger folder)
+`cd application`
+
+2. If you modified the name of user identity generated above, correspondingly modify the user name in the server.js file.
+
+3. Run server file
+`node server.js`
 
 # Stop the network
+1. Go to network folder (from the tpds-hyperledger folder)
+`cd network`
+
+2. Stop the network
 `./network.sh stop`
 
 
 # API Doc
-**CreateFoodGrainAsset**
+**createAsset**
 ----
-  Add new food grain asset to the blockchain network
+  Add new food grain asset to the blockchain network (owner must always be "Central Government")
 
 * **URL**
 
-  `/api/createFoodGrainAsset`
+  `/tpds/createAsset`
 
 * **Method:**
   
@@ -52,55 +77,53 @@ This will create the crypto material for all the orgs, start the network and reg
 * **Data Params**
 
 ```
-  "id":integer,
-  "quantity":string,
+  "ID":string,
+  "Quantity":number,
+  "Owner":string
  ``` 
 
 * **Success Response:**
   
 ``` 
 {	
-  "status":"OK - Transaction has been submitted",
-  "txid":"7f485a8c3a3c7f982aed76e3b20a0ad0fb4cbf174fbeabc792969a30a3383499"
+  "status":"OK - Transaction has been submitted"
 } 
 ```
  
 * **Sample Call:**
 
  ``` 
- curl --request POST \
-  --url http://localhost:3000/api/createFoodGrainAsset \
-  --header 'content-type: application/json' \
-  --data '{
-			"id":1001,
-			"quantity":"50",
-		   }' 
+curl --request POST --url http://localhost:3000/tpds/createAsset --header 'content-type: application/json' --data '{	"ID":1001, "Quantity":50, "Owner":"Central Government" }' 
  ```
             
-**getFoodGrainAsset**
+**getAsset**
 ----
   Get food grain asset from the blockchain with the actual status
 
 * **URL**
 
-  `/api/getFoodGrainAsset/:id`
+  `/tpds/getAsset/:id`
 
 * **Method:**
   
 	`GET` 
 
 * **URL Params**
-    `"id":integer`
+    `"id":string`
 
 * **Success Response:**
   
  ``` 
  {
     "result": {
-        "id": integer
-        "owner": string
-        "prev_owners": string array
-        "state": integer
+        "ID": integer
+        "Quantity": number
+        "Owner": string
+        "PrevOwners": string array
+        "State": integer
+        "SendTime": string
+        "ExpectedTime": string
+        "ExpectedReceiver": string
     } 
  }
  ```
@@ -108,49 +131,5 @@ This will create the crypto material for all the orgs, start the network and reg
 * **Sample Call:**
 
 ``` 
-curl --request GET \
-  --url 'http://localhost:3000/api/getFoodGrainAsset/<foodGrainAssetId>' \
-  --header 'content-type: application/json' \ 
-```
-
-
-**transferFoodGrainAsset**
-----
-  Changes the owner and prev_owners for the specified foood grain asset id when a transfer happens
-
-* **URL**
-
-  `/api/transferFoodGrainAsset`
-
-* **Method:**
-  
-	`POST` 
-
-* **Data Params**
-``` 
-"id":integer,
-"from":string,
-"to":string
-``` 
-
-* **Success Response:**
-  
- ``` 
-{	
-	status":"OK - Transaction has been submitted",
-	"txid":"7f485a8c3a3c7f982aed76e3b20a0ad0fb4cbf174fbeabc792969a30a3383499"
-}
- ```
- 
-* **Sample Call:**
-
-``` 
-curl --request POST \
-  --url http://localhost:3000/api/transferFoodGrainAsset \
-  --header 'content-type: application/json' \
-  --data '{
-            "id":1001,
-            "from":"Central Government",
-            "to":"State Government Depot"
-			}'
+curl --request GET --url 'http://localhost:3000/tpds/getAsset/1001' --header 'content-type: application/json'
 ```

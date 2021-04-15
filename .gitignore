@@ -1,3 +1,7 @@
 wallet
 !wallet/.gitkeep
 network/go
+.vscode
+.editorconfig
+.eslintignore
+.eslintrc.js

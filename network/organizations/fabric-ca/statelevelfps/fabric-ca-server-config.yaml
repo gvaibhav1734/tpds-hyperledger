@@ -243,10 +243,14 @@ ldap:
 # which are always stored in lower case.
 #############################################################################
 affiliations:
-   org1:
+   centralgovernment:
       - department1
       - department2
-   org2:
+   stategovernmentdepot:
+      - department1
+   statelevelfps:
+      - department1
+   other:
       - department1
 
 #############################################################################
