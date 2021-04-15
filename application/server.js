@@ -108,7 +108,176 @@ app.get('/tpds/getAsset/:id', async function (req, res) {
     }
 });
   
+app.post('/tpds/sendAsset', async function (req, res) {
 
+    try {
+        var walletPath;
+        var UserId;
+        var ccp;
+
+        if (req.body.From == 'State Government Depot') {
+            walletPath = walletPath_sgd;
+            UserId = UserId_sgd;
+            ccp = buildCCPstategovernmentdepot();
+        } else if (req.body.From == 'State Level FPS') {
+            walletPath = walletPath_slf;
+            UserId = UserId_slf;
+            ccp = buildCCPstatelevelfps();
+        } else if (req.body.From == 'Other') {
+            walletPath = walletPath_o;
+            UserId = UserId_o;
+            ccp = buildCCPother();
+        } else {
+            walletPath = walletPath_cg;
+            UserId = UserId_cg;
+            ccp = buildCCPcentralgovernment();
+        }
+
+        const wallet = await buildWallet(Wallets, walletPath);
+        const gateway = new Gateway();
+        var result;
+        await gateway.connect(ccp, {
+            wallet,
+            identity: UserId,
+            discovery: { enabled: true, asLocalhost: true }
+        });
+        const network = await gateway.getNetwork(channelName);
+        const contract = network.getContract(chaincodeName);
+        result = await contract.submitTransaction('SendAsset', req.body.ID, req.body.From, req.body.To);
+        console.log(`result: ${result}`);
+        res.json({
+            status: 'OK - Transaction has been submitted',
+        });
+    } catch (error) {
+        console.error(`Failed to evaluate transaction: ${error}`);
+        res.status(500).json({
+        error: error
+        });
+    }
+});
+
+app.post('/tpds/receiveAsset', async function (req, res) {
+
+    try {
+        var walletPath;
+        var UserId;
+        var ccp;
+
+        if (req.body.From == 'State Government Depot') {
+            walletPath = walletPath_sgd;
+            UserId = UserId_sgd;
+            ccp = buildCCPstategovernmentdepot();
+        } else if (req.body.From == 'State Level FPS') {
+            walletPath = walletPath_slf;
+            UserId = UserId_slf;
+            ccp = buildCCPstatelevelfps();
+        } else if (req.body.From == 'Other') {
+            walletPath = walletPath_o;
+            UserId = UserId_o;
+            ccp = buildCCPother();
+        } else {
+            walletPath = walletPath_cg;
+            UserId = UserId_cg;
+            ccp = buildCCPcentralgovernment();
+        }
+
+        const wallet = await buildWallet(Wallets, walletPath);
+        const gateway = new Gateway();
+        var result;
+        await gateway.connect(ccp, {
+            wallet,
+            identity: UserId,
+            discovery: { enabled: true, asLocalhost: true }
+        });
+        const network = await gateway.getNetwork(channelName);
+        const contract = network.getContract(chaincodeName);
+        result = await contract.submitTransaction('ReceiveAsset', req.body.ID, req.body.From, req.body.To);
+        console.log(`result: ${result}`);
+        res.json({
+            status: 'OK - Transaction has been submitted',
+        });
+    } catch (error) {
+        console.error(`Failed to evaluate transaction: ${error}`);
+        res.status(500).json({
+        error: error
+        });
+    }
+});
+
+app.post('/tpds/deleteAsset', async function (req, res) {
+
+    try {
+        const ccp = buildCCPcentralgovernment();
+        const wallet = await buildWallet(Wallets, walletPath_cg);
+        const gateway = new Gateway();
+        var result;
+        await gateway.connect(ccp, {
+            wallet,
+            identity: UserId_cg,
+            discovery: { enabled: true, asLocalhost: true }
+        });
+        const network = await gateway.getNetwork(channelName);
+        const contract = network.getContract(chaincodeName);
+        result = await contract.submitTransaction('DeleteAsset', req.body.ID);
+        console.log(`result: ${result}`);
+        res.json({
+            status: 'OK - Transaction has been submitted',
+        });
+    } catch (error) {
+        console.error(`Failed to evaluate transaction: ${error}`);
+        res.status(500).json({
+        error: error
+        });
+    }
+});
+
+app.get('/tpds/getAllAssets', async function (req, res) {
+    try {
+        const ccp = buildCCPcentralgovernment();
+        const wallet = await buildWallet(Wallets, walletPath_cg);
+        const gateway = new Gateway();
+        var result;
+        await gateway.connect(ccp, {
+            wallet,
+            identity: UserId_cg,
+            discovery: { enabled: true, asLocalhost: true }
+        });
+        const network = await gateway.getNetwork(channelName);
+        const contract = network.getContract(chaincodeName);
+        result = await contract.evaluateTransaction('GetAllAssets');
+        let response = JSON.parse(result.toString());
+        res.json({result:response});
+    } catch (error) {
+        console.error(`Failed to evaluate transaction: ${error}`);
+        res.status(500).json({
+            error: error
+        });
+    }
+});
+
+app.get('/tpds/checkLeakage', async function (req, res) {
+    try {
+        const ccp = buildCCPcentralgovernment();
+        const wallet = await buildWallet(Wallets, walletPath_cg);
+        const gateway = new Gateway();
+        var result;
+        await gateway.connect(ccp, {
+            wallet,
+            identity: UserId_cg,
+            discovery: { enabled: true, asLocalhost: true }
+        });
+        const network = await gateway.getNetwork(channelName);
+        const contract = network.getContract(chaincodeName);
+        result = await contract.evaluateTransaction('VerifyLeakage');
+        let response = JSON.parse(result.toString());
+        res.json({result:response});
+    } catch (error) {
+        console.error(`Failed to evaluate transaction: ${error}`);
+        res.status(500).json({
+            error: error
+        });
+    }
+});
 
 app.listen(3000, ()=>{
     console.log("***********************************");

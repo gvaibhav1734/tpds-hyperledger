@@ -121,8 +121,8 @@ curl --request POST --url http://localhost:3000/tpds/createAsset --header 'conte
         "Owner": string
         "PrevOwners": string array
         "State": integer
-        "SendTime": string
-        "ExpectedTime": string
+        "SendTime": number
+        "ExpectedTime": number
         "ExpectedReceiver": string
     } 
  }
@@ -132,4 +132,173 @@ curl --request POST --url http://localhost:3000/tpds/createAsset --header 'conte
 
 ``` 
 curl --request GET --url 'http://localhost:3000/tpds/getAsset/1001' --header 'content-type: application/json'
+```
+
+**sendAsset**
+----
+  Send food grain asset to the next entity in supply chain
+
+* **URL**
+
+  `/tpds/sendAsset`
+
+* **Method:**
+  
+	`POST` 
+
+* **Data Params**
+
+```
+  "ID":string,
+  "From":string,
+  "To":string
+ ``` 
+
+* **Success Response:**
+  
+``` 
+{	
+  "status":"OK - Transaction has been submitted"
+} 
+```
+ 
+* **Sample Call:**
+
+ ``` 
+curl --request POST --url http://localhost:3000/tpds/sendAsset --header 'content-type: application/json' --data '{	"ID":1001, "From":"Central Government", "To":"State Government Depot" }' 
+ ```
+
+ **receiveAsset**
+----
+  Receive food grain asset by the next entity in supply chain
+
+* **URL**
+
+  `/tpds/receiveAsset`
+
+* **Method:**
+  
+	`POST` 
+
+* **Data Params**
+
+```
+  "ID":string,
+  "From":string,
+  "To":string
+ ``` 
+
+* **Success Response:**
+  
+``` 
+{	
+  "status":"OK - Transaction has been submitted"
+} 
+```
+ 
+* **Sample Call:**
+
+ ``` 
+curl --request POST --url http://localhost:3000/tpds/receiveAsset --header 'content-type: application/json' --data '{	"ID":1001, "From":"Central Government", "To":"State Government Depot" }' 
+ ```
+
+ **deleteAsset**
+----
+  Delete a food grain asset from the blockchain
+* **URL**
+
+  `/tpds/deleteAsset`
+
+* **Method:**
+  
+	`POST` 
+
+* **Data Params**
+
+```
+  "ID":string
+``` 
+
+* **Success Response:**
+  
+``` 
+{	
+  "status":"OK - Transaction has been submitted"
+} 
+```
+ 
+* **Sample Call:**
+
+ ``` 
+curl --request POST --url http://localhost:3000/tpds/deleteAsset --header 'content-type: application/json' --data '{	"ID":1001 }' 
+ ```
+ 
+ **getAllAssets**
+----
+  Get all food grain assets from the blockchain with the actual status
+
+* **URL**
+
+  `/tpds/getAllAssets`
+
+* **Method:**
+  
+	`GET` 
+
+* **Success Response:**
+  
+ ``` 
+ [{
+    "result": {
+        "ID": integer
+        "Quantity": number
+        "Owner": string
+        "PrevOwners": string array
+        "State": integer
+        "SendTime": number
+        "ExpectedTime": number
+        "ExpectedReceiver": string
+    } 
+ }, ... ]
+ ```
+ 
+* **Sample Call:**
+
+``` 
+curl --request GET --url 'http://localhost:3000/tpds/getAllAssets' --header 'content-type: application/json'
+```
+ 
+ **checkLeakage**
+----
+  Checks all food grain assets in the blockchain for a possibility of leakage
+
+* **URL**
+
+  `/tpds/checkLeakage`
+
+* **Method:**
+  
+	`GET` 
+
+* **Success Response:**
+  
+ ``` 
+ [{
+    "result": {
+        "ID": integer
+        "Quantity": number
+        "Owner": string
+        "PrevOwners": string array
+        "State": integer
+        "SendTime": number
+        "ExpectedTime": number
+        "ExpectedReceiver": string
+    } 
+ }, ... ]
+ ```
+ 
+* **Sample Call:**
+
+``` 
+curl --request GET --url 'http://localhost:3000/tpds/checkLeakage' --header 'content-type: application/json'
 ```

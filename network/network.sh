@@ -247,6 +247,16 @@ function networkDown() {
     # remove channel and script artifacts
     docker run --rm -v "$(pwd):/data" busybox sh -c 'cd /data && rm -rf channel-artifacts log.txt *.tar.gz'
   fi
+
+  rm ../application/wallet-cg/*
+  rm ../application/wallet-sgd/*
+  rm ../application/wallet-slf/*
+  rm ../application/wallet-o/*
+
+  rmdir ../application/wallet-cg
+  rmdir ../application/wallet-sgd
+  rmdir ../application/wallet-slf
+  rmdir ../application/wallet-o
 }
 
 # Using crpto vs CA. default is cryptogen
