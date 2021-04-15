@@ -1,10 +1,12 @@
 /*
+ * Copyright IBM Corp. All Rights Reserved.
+ *
  * SPDX-License-Identifier: Apache-2.0
  */
 
 'use strict';
 
-const SupplyChain = require('./lib/supplyChain');
+const assetTransfer = require('./lib/assetTransfer');
 
-module.exports.supplyChain = SupplyChain;
-module.exports.contracts = [ SupplyChain ];
+module.exports.AssetTransfer = assetTransfer;
+module.exports.contracts = [assetTransfer];

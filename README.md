@@ -1,9 +1,5 @@
-# hlf1.4-supply-chain
-Supply chain proof of concept in Hyperledger Fabric. Network with four companies and a specific chaincode exposed as rest API
-
-More info in Medium tutorials
-* [English](https://medium.com/coinmonks/creating-a-hyperledger-fabric-network-from-scratch-part-i-designing-the-network-23d803bbdb61) 
-* [Spanish](https://medium.com/@ialberquilla/creando-una-red-hyperledger-fabric-desde-cero-96314117e633)
+# tpds-hyperledger
+TPDS Supply chain proof of concept in Hyperledger Fabric. Network with four orgs and a specific chaincode exposed as rest API
 
 # Installation instructions
 
@@ -11,43 +7,68 @@ More info in Medium tutorials
 https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html
 
 2. Donwload fabric binaries and samples:
-`curl -sSL http://bit.ly/2ysbOFE | bash -s 1.4.3`
+`curl -sSL http://bit.ly/2ysbOFE | bash -s`
 
-3. Go to fabric samples:
-`cd fabric-samples`
+3. Download the tpds:
+`git clone https://github.com/gvaibhav1734/tpds-hyperledger`
 
-4. Download the template:
-`git clone https://github.com/ialberquilla/hlf1.4-supply-chain`
+4. Go to tpds folder:
+`cd tpds-hyperledger`
 
-6. Go to 
-`hlf1.4-supply-chain`
+5. Go to network folder
+`cd network`
 
-5. Install node-js dependencies
-`./network.sh install`
+6. Set PATH environment variable to include fabric-samples/bin from the repo cloned in step 2.
 
-
-
-# Start the network
-1. Generate the crypto material and start the network
-`./network.sh start`
-This will create the crypto material for all the orgs, start the network and register it's admins and users. Then will start the API at localhost:3000
+7. Start the network
+`./start.sh`
 
 
-# Re-start the API server
-`npm start`
+
+# Generate identities
+1. Go to application folder (from the tpds-hyperledger folder)
+`cd application`
+
+2. Run createIdentities.js
+`node createIdentities.js`
+
+3. If you stop and restart the fabric network, you will need to regenerate the identities. Delete existing wallet folders, change user names under all orgs and run the file according to step 2
+
+
+# Test the chaincode
+1. Go to application folder (from the tpds-hyperledger folder)
+`cd application`
+
+2. If you modified the name of user identity generated above, correspondingly modify the user name in the testApp.js file.
+
+3. Run test file
+`node testApp.js`
+
+# Start server
+1. Go to application folder (from the tpds-hyperledger folder)
+`cd application`
+
+2. If you modified the name of user identity generated above, correspondingly modify the user name in the server.js file.
+
+3. Run server file
+`node server.js`
 
 # Stop the network
+1. Go to network folder (from the tpds-hyperledger folder)
+`cd network`
+
+2. Stop the network
 `./network.sh stop`
 
 
 # API Doc
-**AddTuna**
+**createAsset**
 ----
-  Add new Tuna to the blockchain network
+  Add new food grain asset to the blockchain network (owner must always be "Central Government")
 
 * **URL**
 
-  `/api/addTuna`
+  `/tpds/createAsset`
 
 * **Method:**
   
@@ -56,62 +77,53 @@ This will create the crypto material for all the orgs, start the network and reg
 * **Data Params**
 
 ```
-  "id":integer,
-  "latitude":string,
-  "longitude":string,
-  "length":integer,
-  "weight":integer
+  "ID":string,
+  "Quantity":number,
+  "Owner":string
  ``` 
 
 * **Success Response:**
   
 ``` 
 {	
-  "status":"OK - Transaction has been submitted",
-  "txid":"7f485a8c3a3c7f982aed76e3b20a0ad0fb4cbf174fbeabc792969a30a3383499"
+  "status":"OK - Transaction has been submitted"
 } 
 ```
  
 * **Sample Call:**
 
  ``` 
- curl --request POST \
-  --url http://localhost:3000/api/addTuna \
-  --header 'content-type: application/json' \
-  --data '{
-			"id":10001,
-			"latitude":"43.3623",
-			"longitude":"8.4115",
-			"length":34,
-			"weight":50
-		   }' 
+curl --request POST --url http://localhost:3000/tpds/createAsset --header 'content-type: application/json' --data '{	"ID":1001, "Quantity":50, "Owner":"Central Government" }' 
  ```
             
-**getTuna**
+**getAsset**
 ----
-  Get Tuna from the blockchain with the actual status
+  Get food grain asset from the blockchain with the actual status
 
 * **URL**
 
-  `/api/getTuna/:id`
+  `/tpds/getAsset/:id`
 
 * **Method:**
   
 	`GET` 
 
 * **URL Params**
-    `"id":integer`
+    `"id":string`
 
 * **Success Response:**
   
  ``` 
  {
     "result": {
-        "id": integer
-        "latitude": string
-        "longitude": string
-        "length": integer
-        "weight": integer
+        "ID": integer
+        "Quantity": number
+        "Owner": string
+        "PrevOwners": string array
+        "State": integer
+        "SendTime": number
+        "ExpectedTime": number
+        "ExpectedReceiver": string
     } 
  }
  ```
@@ -119,187 +131,174 @@ This will create the crypto material for all the orgs, start the network and reg
 * **Sample Call:**
 
 ``` 
-curl --request GET \
-  --url 'http://localhost:3000/api/getTuna/<TunaId>' \
-  --header 'content-type: application/json' \ 
+curl --request GET --url 'http://localhost:3000/tpds/getAsset/1001' --header 'content-type: application/json'
 ```
 
-
-**setPosition**
+**sendAsset**
 ----
-  Sets the position (latitude and longitud) for the specified id, could be sushiId or TunaId
+  Send food grain asset to the next entity in supply chain
 
 * **URL**
 
-  `/api/getTuna/setPosition`
+  `/tpds/sendAsset`
 
 * **Method:**
   
 	`POST` 
 
 * **Data Params**
-``` 
-"id":10001,
-"latitude":"43.3623",
-"longitude":"8.4115"
-``` 
+
+```
+  "ID":string,
+  "From":string,
+  "To":string
+ ``` 
 
 * **Success Response:**
   
- ``` 
+``` 
 {	
-	status":"OK - Transaction has been submitted",
-	"txid":"7f485a8c3a3c7f982aed76e3b20a0ad0fb4cbf174fbeabc792969a30a3383499"
-}
- ```
+  "status":"OK - Transaction has been submitted"
+} 
+```
  
 * **Sample Call:**
 
-``` 
-curl --request POST \
-  --url http://localhost:3000/api/setPosition \
-  --header 'content-type: application/json' \
-  --data '{
-            "id":10001,
-            "latitude":"43.3623",
-            "longitude":"8.4115"
-			}'
-```
+ ``` 
+curl --request POST --url http://localhost:3000/tpds/sendAsset --header 'content-type: application/json' --data '{	"ID":1001, "From":"Central Government", "To":"State Government Depot" }' 
+ ```
 
-**addSushi**
+ **receiveAsset**
 ----
-   Add new Sushi to the blockchain network with the related TunaId
+  Receive food grain asset by the next entity in supply chain
 
 * **URL**
 
-  `/api/getTuna/addSushi`
+  `/tpds/receiveAsset`
 
 * **Method:**
   
 	`POST` 
 
 * **Data Params**
- ```   
-"id":integer,
-"latitude":string,
-"longitude":string,
-"type":string,
-"tunaId":integer
+
+```
+  "ID":string,
+  "From":string,
+  "To":string
  ``` 
+
 * **Success Response:**
   
- ``` 
+``` 
 {	
-	status":"OK - Transaction has been submitted",
-	"txid":"7f485a8c3a3c7f982aed76e3b20a0ad0fb4cbf174fbeabc792969a30a3383499"
-}
- ```
+  "status":"OK - Transaction has been submitted"
+} 
+```
  
 * **Sample Call:**
 
-``` 
-curl --request POST \
-  --url http://localhost:3000/api/addSushi \
-  --header 'content-type: application/json' \
-  --data '{
-			"id":200001,
-            "latitude":"42.5987",
-            "longitude":"5.5671",
-            "type":"sashimi",
-            "tunaId":10001
-			}'
-```
+ ``` 
+curl --request POST --url http://localhost:3000/tpds/receiveAsset --header 'content-type: application/json' --data '{	"ID":1001, "From":"Central Government", "To":"State Government Depot" }' 
+ ```
 
-**getSushi**
+ **deleteAsset**
 ----
-  Get sushi from the blockchain with the actual status
+  Delete a food grain asset from the blockchain
+* **URL**
+
+  `/tpds/deleteAsset`
+
+* **Method:**
+  
+	`POST` 
+
+* **Data Params**
+
+```
+  "ID":string
+``` 
+
+* **Success Response:**
+  
+``` 
+{	
+  "status":"OK - Transaction has been submitted"
+} 
+```
+ 
+* **Sample Call:**
+
+ ``` 
+curl --request POST --url http://localhost:3000/tpds/deleteAsset --header 'content-type: application/json' --data '{	"ID":1001 }' 
+ ```
+ 
+ **getAllAssets**
+----
+  Get all food grain assets from the blockchain with the actual status
 
 * **URL**
 
-  `/api/getSushi/:id`
+  `/tpds/getAllAssets`
 
 * **Method:**
   
 	`GET` 
 
-* **URL Params**
-    `"id":integer`
-
 * **Success Response:**
   
  ``` 
-  {
+ [{
     "result": {
-            "id":"200001",
-            "latitude":"42.5987",
-            "longitude":"5.5671",
-            "type":"sashimi",
-            "tunaId":10001
-			}'
-}
+        "ID": integer
+        "Quantity": number
+        "Owner": string
+        "PrevOwners": string array
+        "State": integer
+        "SendTime": number
+        "ExpectedTime": number
+        "ExpectedReceiver": string
+    } 
+ }, ... ]
  ```
  
 * **Sample Call:**
- 
+
 ``` 
-curl --request GET \
-  --url 'http://localhost:3000/api/getSushi/<SushiId>' \
-  --header 'content-type: application/json' \
+curl --request GET --url 'http://localhost:3000/tpds/getAllAssets' --header 'content-type: application/json'
 ```
-
-
-
-**getSushiHistory**
+ 
+ **checkLeakage**
 ----
-  Get sushi history, from the TunaId that started the supply-chain, getting all the history positions, until the sushi is delivered, with the sushi history too
+  Checks all food grain assets in the blockchain for a possibility of leakage
 
 * **URL**
 
-  `/api/getHistorySushi/:id`
+  `/tpds/checkLeakage`
 
 * **Method:**
   
 	`GET` 
 
-* **URL Params**
-    `"id":integer`
-
 * **Success Response:**
   
  ``` 
-{
-    "historySushi": [
-        {
-            "id": "200001",
-            "latitude":"42.5987",
-            "longitude":"5.5671",
-            "type": "sashimi",
-            "tunaId": 10004
-        },
-        {
-            "id": "200001",
-            "latitude":"43.3623",
-            "longitude":"8.4115",
-            "type": "sashimi",
-            "tunaId": 10004
-        }
-    ],
-    "historyTuna": [
-        {
-            "id": "10004",
-            "latitude":"43.3623",
-            "longitude":"8.4115",
-            "length": 34,
-            "weight": 50
-        }
-    ]
-}
+ [{
+    "result": {
+        "ID": integer
+        "Quantity": number
+        "Owner": string
+        "PrevOwners": string array
+        "State": integer
+        "SendTime": number
+        "ExpectedTime": number
+        "ExpectedReceiver": string
+    } 
+ }, ... ]
  ```
  
 * **Sample Call:**
- 
- ``` 
-curl --request GET \
-  --url 'http://localhost:3000/api/getHistorySushi/<SushiId>' \
-  --header 'content-type: application/json' \
+
+``` 
+curl --request GET --url 'http://localhost:3000/tpds/checkLeakage' --header 'content-type: application/json'
 ```

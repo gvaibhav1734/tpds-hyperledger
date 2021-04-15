@@ -1,4 +1,7 @@
-node_modules
-supply-network/channel-artifacts/
-supply-network/crypto-config/
-wallet/
+wallet
+!wallet/.gitkeep
+network/go
+.vscode
+.editorconfig
+.eslintignore
+.eslintrc.js
