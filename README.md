@@ -58,7 +58,7 @@ https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html
 `cd network`
 
 2. Stop the network
-`./network.sh stop`
+`./network.sh down`
 
 
 # API Doc
