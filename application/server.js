@@ -13,7 +13,7 @@ const { buildCAClient, registerAndEnrollUser, enrollAdmin } = require('./CAUtil.
 const { buildCCPcentralgovernment, buildCCPstategovernmentdepot, buildCCPstatelevelfps, buildCCPother, buildWallet } = require('./AppUtil.js');
 
 // TODO : Update variables as needed
-const channelName = 'mychannel';
+const channelName = 'channel1';
 const chaincodeName = 'tpds';
 const msp_cg = 'centralgovernmentMSP';
 const msp_sgd = 'stategovernmentdepotMSP';

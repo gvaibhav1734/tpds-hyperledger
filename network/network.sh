@@ -217,6 +217,19 @@ function createChannel() {
   scripts/createChannel.sh $CHANNEL_NAME $CLI_DELAY $MAX_RETRY $VERBOSE
 }
 
+function createChannel2() {
+  # Bring up the network if it is not already up.
+
+  if [ ! -d "organizations/peerOrganizations" ]; then
+    infoln "Bringing up network"
+    networkUp
+  fi
+
+  # now run the script that creates a channel. This script uses configtxgen once
+  # to create the channel creation transaction and the anchor peer updates.
+  scripts/createChannel2.sh $CHANNEL_NAME $CLI_DELAY $MAX_RETRY $VERBOSE
+}
+
 function deployCC() {
   scripts/deployCC.sh $CHANNEL_NAME $CC_NAME $CC_SRC_PATH $CC_SRC_LANGUAGE $CC_VERSION $CC_SEQUENCE $CC_INIT_FCN $CC_END_POLICY $CC_COLL_CONFIG $CLI_DELAY $MAX_RETRY $VERBOSE
 
@@ -316,6 +329,15 @@ if [[ $# -ge 1 ]] ; then
   fi
 fi
 
+# parse a createChannel2 subcommand if used
+if [[ $# -ge 1 ]] ; then
+  key="$1"
+  if [[ "$key" == "createChannel2" ]]; then
+      export MODE="createChannel2"
+      shift
+  fi
+fi
+
 # parse flags
 
 while [[ $# -ge 1 ]] ; do
@@ -402,6 +424,9 @@ if [ "$MODE" == "up" ]; then
 elif [ "$MODE" == "createChannel" ]; then
   infoln "Creating channel '${CHANNEL_NAME}'."
   infoln "If network is not up, starting nodes with CLI timeout of '${MAX_RETRY}' tries and CLI delay of '${CLI_DELAY}' seconds and using database '${DATABASE} ${CRYPTO_MODE}"
+elif [ "$MODE" == "createChannel2" ]; then
+  infoln "Creating channel '${CHANNEL_NAME}'."
+  infoln "If network is not up, starting nodes with CLI timeout of '${MAX_RETRY}' tries and CLI delay of '${CLI_DELAY}' seconds and using database '${DATABASE} ${CRYPTO_MODE}"
 elif [ "$MODE" == "down" ]; then
   infoln "Stopping network"
 elif [ "$MODE" == "restart" ]; then
@@ -417,6 +442,8 @@ if [ "${MODE}" == "up" ]; then
   networkUp
 elif [ "${MODE}" == "createChannel" ]; then
   createChannel
+elif [ "${MODE}" == "createChannel2" ]; then
+  createChannel2
 elif [ "${MODE}" == "deployCC" ]; then
   deployCC
 elif [ "${MODE}" == "down" ]; then

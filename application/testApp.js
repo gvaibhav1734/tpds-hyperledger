@@ -14,7 +14,7 @@ const { buildCAClient, registerAndEnrollUser, enrollAdmin } = require('./CAUtil.
 const { buildCCPcentralgovernment, buildCCPstategovernmentdepot, buildCCPstatelevelfps, buildCCPother, buildWallet } = require('./AppUtil.js');
 
 // TODO : Update variables as needed
-const channelName = 'mychannel';
+const channelName = 'channel1';
 const chaincodeName = 'tpds';
 const mspOrg1 = 'centralgovernmentMSP';
 const walletPath = path.join(__dirname, 'wallet-cg');
