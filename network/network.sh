@@ -238,6 +238,14 @@ function deployCC() {
   fi
 }
 
+function deployCC2() {
+  scripts/deployCC2.sh $CHANNEL_NAME $CC_NAME $CC_SRC_PATH $CC_SRC_LANGUAGE $CC_VERSION $CC_SEQUENCE $CC_INIT_FCN $CC_END_POLICY $CC_COLL_CONFIG $CLI_DELAY $MAX_RETRY $VERBOSE
+
+  if [ $? -ne 0 ]; then
+    fatalln "Deploying chaincode failed"
+  fi
+}
+
 function networkDown() {
   # stop org3 containers also in addition to org1 and org2, in case we were running sample to add org3
   docker-compose -f $COMPOSE_FILE_BASE -f $COMPOSE_FILE_COUCH -f $COMPOSE_FILE_CA down --volumes --remove-orphans
@@ -270,6 +278,16 @@ function networkDown() {
   rmdir ../application/wallet-sgd
   rmdir ../application/wallet-slf
   rmdir ../application/wallet-o
+
+  rm ../application/wallet-cg2/*
+  rm ../application/wallet-sgd2/*
+  rm ../application/wallet-slf2/*
+  rm ../application/wallet-o2/*
+
+  rmdir ../application/wallet-cg2
+  rmdir ../application/wallet-sgd2
+  rmdir ../application/wallet-slf2
+  rmdir ../application/wallet-o2
 }
 
 # Using crpto vs CA. default is cryptogen
@@ -433,6 +451,8 @@ elif [ "$MODE" == "restart" ]; then
   infoln "Restarting network"
 elif [ "$MODE" == "deployCC" ]; then
   infoln "deploying chaincode on channel '${CHANNEL_NAME}'"
+elif [ "$MODE" == "deployCC2" ]; then
+  infoln "deploying chaincode on channel '${CHANNEL_NAME}'"
 else
   printHelp
   exit 1
@@ -446,6 +466,8 @@ elif [ "${MODE}" == "createChannel2" ]; then
   createChannel2
 elif [ "${MODE}" == "deployCC" ]; then
   deployCC
+elif [ "${MODE}" == "deployCC2" ]; then
+  deployCC2
 elif [ "${MODE}" == "down" ]; then
   networkDown
 # else

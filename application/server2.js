@@ -13,20 +13,20 @@ const { buildCAClient, registerAndEnrollUser, enrollAdmin } = require('./CAUtil.
 const { buildCCPcentralgovernment, buildCCPstategovernmentdepot, buildCCPstatelevelfps, buildCCPother, buildWallet } = require('./AppUtil.js');
 
 // TODO : Update variables as needed
-const channelName = 'channel1';
-const chaincodeName = 'tpds';
+const channelName = 'channel2';
+const chaincodeName = 'tpds2';
 const msp_cg = 'centralgovernmentMSP';
 const msp_sgd = 'stategovernmentdepotMSP';
 const msp_slf = 'statelevelfpsMSP';
 const msp_o = 'otherMSP';
-const walletPath_cg = path.join(__dirname, 'wallet-cg');
-const walletPath_sgd = path.join(__dirname, 'wallet-sgd');
-const walletPath_slf = path.join(__dirname, 'wallet-slf');
-const walletPath_o = path.join(__dirname, 'wallet-o');
-const UserId_cg = 'cguser2';
-const UserId_sgd = 'sgduser2';
-const UserId_slf = 'slfuser2';
-const UserId_o = 'ouser2';
+const walletPath_cg = path.join(__dirname, 'wallet-cg2');
+const walletPath_sgd = path.join(__dirname, 'wallet-sgd2');
+const walletPath_slf = path.join(__dirname, 'wallet-slf2');
+const walletPath_o = path.join(__dirname, 'wallet-o2');
+const UserId_cg = 'cguser3';
+const UserId_sgd = 'sgduser3';
+const UserId_slf = 'slfuser3';
+const UserId_o = 'ouser3';
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -279,8 +279,8 @@ app.get('/tpds/checkLeakage', async function (req, res) {
     }
 });
 
-app.listen(3000, ()=>{
+app.listen(5000, ()=>{
     console.log("***********************************");
-    console.log("API server listening at localhost:3000");
+    console.log("API server listening at localhost:5000");
     console.log("***********************************");
 });
