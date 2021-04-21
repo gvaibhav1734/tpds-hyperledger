@@ -2,50 +2,55 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 export default function Home() {
+
+    var txn_response = '';
+
+    const getAsset = async event => {
+        event.preventDefault();
+        var assetId = JSON.stringify({
+            ID: event.target.id.value,
+        });
+        console.log(`assetId: ${assetId}`);
+        const res = await fetch(`/api/getAsset2?id=${assetId}`, {
+            method: 'GET'
+        })
+        console.log(`txn response: ${txn_response}`);
+        const result = await res.json();
+        txn_response = result.result; // JSON.stringify(result.result);
+        if (txn_response == null) {
+            txn_response = "Asset does not exist";
+        }
+        document.getElementById("resp").innerHTML = JSON.stringify(txn_response);
+        console.log(`result: ${JSON.stringify(result)}`);
+        console.log(`txn response: ${txn_response}`);
+    }
+
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>TPDS Blockchain: State 2</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1 className="title">
-          Welcome to Blockchain TPDS: State 2!
+          State 2: Find Asset
         </h1>
 
         <p className="description">
-          Select your state:
+          Enter details:
         </p>
 
         <div className="grid">
-          <Link href="/state2/cg">
-          <a className="card">
-            <h3>Central Government &rarr;</h3>
-            <p>Get full access to TPDS supply chain in State 1</p>
-          </a>
-          </Link>
+            <form onSubmit={getAsset}>
+                <label htmlFor="id">ID</label> <br></br>
+                <input id="id" name="id" type="text" className="tb" required /> <br></br>
+                <button type="submit" className="button button1" >Find</button>
+            </form>
+        </div>
 
-          <Link href="/state2/sgd">
-          <a className="card">
-            <h3>State Government Depot &rarr;</h3>
-            <p>Get full access to TPDS supply chain in State 1</p>
-          </a>
-          </Link>
-
-          <Link href="/state2/slf">
-          <a className="card">
-            <h3>State Level FPS &rarr;</h3>
-            <p>Get access to TPDS supply chain in State 1</p>
-          </a>
-          </Link>
-
-          <Link href="/state2/o">
-          <a className="card">
-            <h3>Other &rarr;</h3>
-            <p>Get access to TPDS supply chain in State 1</p>
-          </a>
-          </Link>
+        <div className="grid"> 
+            <p id="resp"></p>
         </div>
       </main>
 
@@ -170,6 +175,41 @@ export default function Home() {
 
         .logo {
           height: 1em;
+        }
+
+        .button {
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+          
+        .button1 {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #008CBA;
+        }
+          
+        .button1:hover {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .tb {
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
         }
 
         @media (max-width: 600px) {

@@ -5,47 +5,42 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>TPDS Blockchain: State 2</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1 className="title">
-          Welcome to Blockchain TPDS: State 2!
+          State 2: Other
         </h1>
 
         <p className="description">
-          Select your state:
+          Select your action:
         </p>
 
         <div className="grid">
-          <Link href="/state2/cg">
-          <a className="card">
-            <h3>Central Government &rarr;</h3>
-            <p>Get full access to TPDS supply chain in State 1</p>
-          </a>
-          </Link>
 
-          <Link href="/state2/sgd">
+        <Link href="/state2/receive-asset">
           <a className="card">
-            <h3>State Government Depot &rarr;</h3>
-            <p>Get full access to TPDS supply chain in State 1</p>
+            <h3>Receive Asset &rarr;</h3>
+            <p>Receive asset from the previous checkpoint</p>
           </a>
-          </Link>
+        </Link>
 
-          <Link href="/state2/slf">
+        <Link href="/state2/get-asset">
           <a className="card">
-            <h3>State Level FPS &rarr;</h3>
-            <p>Get access to TPDS supply chain in State 1</p>
+            <h3>Get Asset &rarr;</h3>
+            <p>Retrieve an asset given ID</p>
           </a>
-          </Link>
+        </Link>
 
-          <Link href="/state2/o">
+        <Link href="/state2/get-all-assets">
           <a className="card">
-            <h3>Other &rarr;</h3>
-            <p>Get access to TPDS supply chain in State 1</p>
+            <h3>Get All Assets &rarr;</h3>
+            <p>Retrieve all assets currently in supply chain</p>
           </a>
-          </Link>
+        </Link>
+
         </div>
       </main>
 

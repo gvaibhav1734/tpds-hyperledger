@@ -5,49 +5,75 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>TPDS Blockchain: State 2</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1 className="title">
-          Welcome to Blockchain TPDS: State 2!
+          State 2: Central Government
         </h1>
 
         <p className="description">
-          Select your state:
+          Select your action:
         </p>
 
         <div className="grid">
-          <Link href="/state2/cg">
+        <Link href="/state2/create-asset">
           <a className="card">
-            <h3>Central Government &rarr;</h3>
-            <p>Get full access to TPDS supply chain in State 1</p>
+            <h3>Create Asset &rarr;</h3>
+            <p>Add new food grains asset to the supply chain</p>
           </a>
           </Link>
 
-          <Link href="/state2/sgd">
+          <Link href="/state2/send-asset">
           <a className="card">
-            <h3>State Government Depot &rarr;</h3>
-            <p>Get full access to TPDS supply chain in State 1</p>
+            <h3>Send Asset &rarr;</h3>
+            <p>Send asset to the next checkpoint</p>
           </a>
           </Link>
 
-          <Link href="/state2/slf">
+          <Link href="/state2/get-asset">
           <a className="card">
-            <h3>State Level FPS &rarr;</h3>
-            <p>Get access to TPDS supply chain in State 1</p>
+            <h3>Get Asset &rarr;</h3>
+            <p>Retrieve an asset given ID</p>
           </a>
           </Link>
 
-          <Link href="/state2/o">
+          <Link href="/state2/get-all-assets">
           <a className="card">
-            <h3>Other &rarr;</h3>
-            <p>Get access to TPDS supply chain in State 1</p>
+            <h3>Get All Assets &rarr;</h3>
+            <p>Retrieve all assets currently in supply chain</p>
           </a>
           </Link>
+
+          <Link href="/state2/verify-leakage">
+          <a className="card">
+            <h3>Check Leackage &rarr;</h3>
+            <p>Check the possibility of assets being leaked</p>
+          </a>
+          </Link>
+
+          <Link href="/state2/delete-asset">
+          <a className="card">
+            <h3>Delete Asset &rarr;</h3>
+            <p>Remove specified food grains asset from the supply chain</p>
+          </a>
+          </Link>
+
         </div>
       </main>
+
+      {/* <footer>
+        <a
+          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Powered by{' '}
+          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
+        </a>
+      </footer> */}
 
       <style jsx>{`
         .container {

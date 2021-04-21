@@ -34,7 +34,6 @@ export default function Home() {
         </h1>
 
         <p className="description">
-          Enter details:
         </p>
 
         <div className="grid">
