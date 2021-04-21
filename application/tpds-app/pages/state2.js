@@ -22,28 +22,28 @@ export default function Home() {
           <Link href="/state2/cg">
           <a className="card">
             <h3>Central Government &rarr;</h3>
-            <p>Get full access to TPDS supply chain in State 1</p>
+            <p>Get full access to TPDS supply chain in State 2</p>
           </a>
           </Link>
 
           <Link href="/state2/sgd">
           <a className="card">
             <h3>State Government Depot &rarr;</h3>
-            <p>Get full access to TPDS supply chain in State 1</p>
+            <p>Get full access to TPDS supply chain in State 2</p>
           </a>
           </Link>
 
           <Link href="/state2/slf">
           <a className="card">
             <h3>State Level FPS &rarr;</h3>
-            <p>Get access to TPDS supply chain in State 1</p>
+            <p>Get access to TPDS supply chain in State 2</p>
           </a>
           </Link>
 
           <Link href="/state2/o">
           <a className="card">
             <h3>Other &rarr;</h3>
-            <p>Get access to TPDS supply chain in State 1</p>
+            <p>Get access to TPDS supply chain in State 2</p>
           </a>
           </Link>
         </div>
