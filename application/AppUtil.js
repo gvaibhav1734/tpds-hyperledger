@@ -11,7 +11,8 @@ const path = require('path');
 
 exports.buildCCPcentralgovernment = () => {
 	// load the common connection configuration file
-	const ccpPath = path.resolve(__dirname, '..', 'network', 'organizations', 'peerOrganizations', 'centralgovernment.example.com', 'connection-centralgovernment.json');
+	const ccpPath = '/home/arpitha/IT/MajorProject/try3/tpds-hyperledger/network/organizations/peerOrganizations/centralgovernment.example.com/connection-centralgovernment.json';// path.resolve(__dirname, '..', 'network', 'organizations', 'peerOrganizations', 'centralgovernment.example.com', 'connection-centralgovernment.json');
+	// console.log(ccpPath);
 	const fileExists = fs.existsSync(ccpPath);
 	if (!fileExists) {
 		throw new Error(`no such file or directory: ${ccpPath}`);
@@ -27,7 +28,7 @@ exports.buildCCPcentralgovernment = () => {
 
 exports.buildCCPstategovernmentdepot = () => {
 	// load the common connection configuration file
-	const ccpPath = path.resolve(__dirname, '..', 'network', 'organizations', 'peerOrganizations', 'stategovernmentdepot.example.com', 'connection-stategovernmentdepot.json');
+	const ccpPath = '/home/arpitha/IT/MajorProject/try3/tpds-hyperledger/network/organizations/peerOrganizations/stategovernmentdepot.example.com/connection-stategovernmentdepot.json' ;//path.resolve(__dirname, '..', 'network', 'organizations', 'peerOrganizations', 'stategovernmentdepot.example.com', 'connection-stategovernmentdepot.json');
 	const fileExists = fs.existsSync(ccpPath);
 	if (!fileExists) {
 		throw new Error(`no such file or directory: ${ccpPath}`);
@@ -43,7 +44,7 @@ exports.buildCCPstategovernmentdepot = () => {
 
 exports.buildCCPstatelevelfps = () => {
 	// load the common connection configuration file
-	const ccpPath = path.resolve(__dirname, '..', 'network', 'organizations', 'peerOrganizations', 'statelevelfps.example.com', 'connection-statelevelfps.json');
+	const ccpPath = '/home/arpitha/IT/MajorProject/try3/tpds-hyperledger/network/organizations/peerOrganizations/statelevelfps.example.com/connection-statelevelfps.json' ;// path.resolve(__dirname, '..', 'network', 'organizations', 'peerOrganizations', 'statelevelfps.example.com', 'connection-statelevelfps.json');
 	const fileExists = fs.existsSync(ccpPath);
 	if (!fileExists) {
 		throw new Error(`no such file or directory: ${ccpPath}`);
@@ -59,7 +60,7 @@ exports.buildCCPstatelevelfps = () => {
 
 exports.buildCCPother = () => {
 	// load the common connection configuration file
-	const ccpPath = path.resolve(__dirname, '..', 'network', 'organizations', 'peerOrganizations', 'other.example.com', 'connection-other.json');
+	const ccpPath = '/home/arpitha/IT/MajorProject/try3/tpds-hyperledger/network/organizations/peerOrganizations/other.example.com/connection-other.json' ;// path.resolve(__dirname, '..', 'network', 'organizations', 'peerOrganizations', 'other.example.com', 'connection-other.json');
 	const fileExists = fs.existsSync(ccpPath);
 	if (!fileExists) {
 		throw new Error(`no such file or directory: ${ccpPath}`);
