@@ -19,7 +19,7 @@ export default function Home() {
         </p>
 
         <div className="grid">
-          <Link href="/state1">
+          {/* <Link href="/state1">
           <a className="card">
             <h3>State 1 &rarr;</h3>
             <p>Find out more about the TPDS supply chain in State 1</p>
@@ -31,38 +31,9 @@ export default function Home() {
             <h3>State 2 &rarr;</h3>
             <p>Find out more about the TPDS supply chain in State 2</p>
           </a>
-          </Link>
-
-          {/* <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a> */}
+          </Link> */}
         </div>
       </main>
-
-      {/* <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer> */}
 
       <style jsx>{`
         .container {

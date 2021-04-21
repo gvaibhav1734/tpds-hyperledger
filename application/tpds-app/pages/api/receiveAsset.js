@@ -1,18 +1,17 @@
 const { Gateway, Wallets } = require('fabric-network');
 const path = require('path');
-const { buildCCPcentralgovernment, buildCCPstategovernmentdepot, buildCCPstatelevelfps, buildWallet } = require('../../../AppUtil');
+const { buildCCPstategovernmentdepot, buildCCPstatelevelfps, buildCCPother, buildWallet } = require('../../../AppUtil');
 
 
 // TODO : Update variables as needed
 const channelName = 'channel1';
 const chaincodeName = 'tpds';
-const walletPath_cg = '/home/arpitha/IT/MajorProject/try3/tpds-hyperledger/application/wallet-cg';
 const walletPath_sgd = '/home/arpitha/IT/MajorProject/try3/tpds-hyperledger/application/wallet-sgd';
 const walletPath_slf = '/home/arpitha/IT/MajorProject/try3/tpds-hyperledger/application/wallet-slf';
-const UserId_cg = 'cguser2';
+const walletPath_o = '/home/arpitha/IT/MajorProject/try3/tpds-hyperledger/application/wallet-o';
 const UserId_sgd = 'sgduser2';
 const UserId_slf = 'slfuser2';
-
+const UserId_o = 'ouser2';
 
 export default async function handler(req, res) {
     try {
@@ -29,9 +28,9 @@ export default async function handler(req, res) {
             UserId = UserId_slf;
             ccp = buildCCPstatelevelfps();
         } else {
-            walletPath = walletPath_cg;
-            UserId = UserId_cg;
-            ccp = buildCCPcentralgovernment();
+            walletPath = walletPath_o;
+            UserId = UserId_o;
+            ccp = buildCCPother();
         }
 
         const wallet = await buildWallet(Wallets, walletPath);
@@ -44,7 +43,7 @@ export default async function handler(req, res) {
         });
         const network = await gateway.getNetwork(channelName);
         const contract = network.getContract(chaincodeName);
-        result = await contract.submitTransaction('SendAsset', req.body.ID, req.body.From, req.body.To);
+        result = await contract.submitTransaction('ReceiveAsset', req.body.ID, req.body.From, req.body.To);
         console.log(`result: ${result}`);
         res.status(200).json({ status: 'OK - Transaction has been submitted' });
     } catch (error) {

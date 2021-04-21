@@ -19,50 +19,37 @@ export default function Home() {
         </p>
 
         <div className="grid">
-          {/* <Link href="/state1/cg">
+
+        <Link href="/state1/send-asset">
           <a className="card">
-            <h3>Central Government &rarr;</h3>
-            <p>Get full access to TPDS supply chain in State 1</p>
+            <h3>Send Asset &rarr;</h3>
+            <p>Send asset to the next checkpoint</p>
           </a>
-          </Link>
+        </Link>
 
-          <Link href="/state2">
+        <Link href="/state1/receive-asset">
           <a className="card">
-            <h3>State Government Depot &rarr;</h3>
-            <p>Get full access to TPDS supply chain in State 1</p>
+            <h3>Receive Asset &rarr;</h3>
+            <p>Receive asset from the previous checkpoint</p>
           </a>
-          </Link> */}
+        </Link>
 
-          {/* <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
+        <Link href="/state1/get-asset">
+          <a className="card">
+            <h3>Get Asset &rarr;</h3>
+            <p>Retrieve an asset given ID</p>
           </a>
+        </Link>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a> */}
+        <Link href="/state1/get-all-assets">
+          <a className="card">
+            <h3>Get All Assets &rarr;</h3>
+            <p>Retrieve all assets currently in supply chain</p>
+          </a>
+        </Link>
+
         </div>
       </main>
-
-      {/* <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer> */}
 
       <style jsx>{`
         .container {

@@ -34,7 +34,7 @@ export default function Home() {
 
       <main>
         <h1 className="title">
-          State 1: Create Asset
+          State 1: Find Asset
         </h1>
 
         <p className="description">
