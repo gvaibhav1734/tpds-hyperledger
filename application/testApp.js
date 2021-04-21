@@ -14,11 +14,11 @@ const { buildCAClient, registerAndEnrollUser, enrollAdmin } = require('./CAUtil.
 const { buildCCPcentralgovernment, buildCCPstategovernmentdepot, buildCCPstatelevelfps, buildCCPother, buildWallet } = require('./AppUtil.js');
 
 // TODO : Update variables as needed
-const channelName = 'channel1';
-const chaincodeName = 'tpds';
+const channelName = 'channel2';
+const chaincodeName = 'tpds2';
 const mspOrg1 = 'centralgovernmentMSP';
-const walletPath = path.join(__dirname, 'wallet-cg');
-const org1UserId = 'cguser2';
+const walletPath = path.join(__dirname, 'wallet-cg2');
+const org1UserId = 'cguser3';
 
 function prettyJSONString(inputString) {
 	return JSON.stringify(JSON.parse(inputString), null, 2);

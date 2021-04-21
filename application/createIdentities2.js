@@ -35,7 +35,7 @@ async function main() {
 		await enrollAdmin(caClient1, wallet1, 'centralgovernmentMSP');
 		// in a real application this would be done only when a new user was required to be added
 		// and would be part of an administrative flow
-		await registerAndEnrollUser(caClient1, wallet1, 'centralgovernmentMSP', 'cguser3', 'centralgovernment.department1');
+		await registerAndEnrollUser(caClient1, wallet1, 'centralgovernmentMSP', 'cguser3', 'centralgovernment.department2');
 
         // build an in memory object with the network configuration (also known as a connection profile)
 		const ccp2 = buildCCPstategovernmentdepot();
@@ -48,7 +48,7 @@ async function main() {
 		await enrollAdmin(caClient2, wallet2, 'stategovernmentdepotMSP');
 		// in a real application this would be done only when a new user was required to be added
 		// and would be part of an administrative flow
-		await registerAndEnrollUser(caClient2, wallet2, 'stategovernmentdepotMSP', 'sgduser3', 'stategovernmentdepot.department1');
+		await registerAndEnrollUser(caClient2, wallet2, 'stategovernmentdepotMSP', 'sgduser3', 'stategovernmentdepot.department2');
 
         // build an in memory object with the network configuration (also known as a connection profile)
 		const ccp3 = buildCCPstatelevelfps();
@@ -61,7 +61,7 @@ async function main() {
 		await enrollAdmin(caClient3, wallet3, 'statelevelfpsMSP');
 		// in a real application this would be done only when a new user was required to be added
 		// and would be part of an administrative flow
-		await registerAndEnrollUser(caClient3, wallet3, 'statelevelfpsMSP', 'slfuser3', 'statelevelfps.department1');
+		await registerAndEnrollUser(caClient3, wallet3, 'statelevelfpsMSP', 'slfuser3', 'statelevelfps.department2');
 
         // build an in memory object with the network configuration (also known as a connection profile)
 		const ccp4 = buildCCPother();
@@ -74,7 +74,7 @@ async function main() {
 		await enrollAdmin(caClient4, wallet4, 'otherMSP');
 		// in a real application this would be done only when a new user was required to be added
 		// and would be part of an administrative flow
-		await registerAndEnrollUser(caClient4, wallet4, 'otherMSP', 'ouser3', 'other.department1');
+		await registerAndEnrollUser(caClient4, wallet4, 'otherMSP', 'ouser3', 'other.department2');
 
 	} catch (error) {
 		console.error(`******** FAILED to create all identities: ${error}`);
