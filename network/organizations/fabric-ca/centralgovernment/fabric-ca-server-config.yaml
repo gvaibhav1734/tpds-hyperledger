@@ -248,10 +248,13 @@ affiliations:
       - department2
    stategovernmentdepot:
       - department1
+      - department2
    statelevelfps:
       - department1
+      - department2
    other:
       - department1
+      - department2
 
 #############################################################################
 #  Signing section

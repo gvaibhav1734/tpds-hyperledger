@@ -44,14 +44,16 @@ https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html
 3. Run test file
 `node testApp.js`
 
-# Start server
+# Run App
 1. Go to application folder (from the tpds-hyperledger folder)
 `cd application`
 
 2. If you modified the name of user identity generated above, correspondingly modify the user name in the server.js file.
 
-3. Run server file
-`node server.js`
+3. `cd tpds-app`
+
+3. Run app
+`npm run dev`
 
 # Stop the network
 1. Go to network folder (from the tpds-hyperledger folder)
@@ -302,3 +304,10 @@ curl --request GET --url 'http://localhost:3000/tpds/getAllAssets' --header 'con
 ``` 
 curl --request GET --url 'http://localhost:3000/tpds/checkLeakage' --header 'content-type: application/json'
 ```
+
+
+## Note
+
+The following paths have been hardcoded and must be changed as needed:
+ - Paths in application/AppUtil.js 
+ - Paths in all application/tpds-app/pages/api/* js files

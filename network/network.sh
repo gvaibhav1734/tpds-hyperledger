@@ -217,8 +217,29 @@ function createChannel() {
   scripts/createChannel.sh $CHANNEL_NAME $CLI_DELAY $MAX_RETRY $VERBOSE
 }
 
+function createChannel2() {
+  # Bring up the network if it is not already up.
+
+  if [ ! -d "organizations/peerOrganizations" ]; then
+    infoln "Bringing up network"
+    networkUp
+  fi
+
+  # now run the script that creates a channel. This script uses configtxgen once
+  # to create the channel creation transaction and the anchor peer updates.
+  scripts/createChannel2.sh $CHANNEL_NAME $CLI_DELAY $MAX_RETRY $VERBOSE
+}
+
 function deployCC() {
   scripts/deployCC.sh $CHANNEL_NAME $CC_NAME $CC_SRC_PATH $CC_SRC_LANGUAGE $CC_VERSION $CC_SEQUENCE $CC_INIT_FCN $CC_END_POLICY $CC_COLL_CONFIG $CLI_DELAY $MAX_RETRY $VERBOSE
+
+  if [ $? -ne 0 ]; then
+    fatalln "Deploying chaincode failed"
+  fi
+}
+
+function deployCC2() {
+  scripts/deployCC2.sh $CHANNEL_NAME $CC_NAME $CC_SRC_PATH $CC_SRC_LANGUAGE $CC_VERSION $CC_SEQUENCE $CC_INIT_FCN $CC_END_POLICY $CC_COLL_CONFIG $CLI_DELAY $MAX_RETRY $VERBOSE
 
   if [ $? -ne 0 ]; then
     fatalln "Deploying chaincode failed"
@@ -257,6 +278,16 @@ function networkDown() {
   rmdir ../application/wallet-sgd
   rmdir ../application/wallet-slf
   rmdir ../application/wallet-o
+
+  rm ../application/wallet-cg2/*
+  rm ../application/wallet-sgd2/*
+  rm ../application/wallet-slf2/*
+  rm ../application/wallet-o2/*
+
+  rmdir ../application/wallet-cg2
+  rmdir ../application/wallet-sgd2
+  rmdir ../application/wallet-slf2
+  rmdir ../application/wallet-o2
 }
 
 # Using crpto vs CA. default is cryptogen
@@ -312,6 +343,15 @@ if [[ $# -ge 1 ]] ; then
   key="$1"
   if [[ "$key" == "createChannel" ]]; then
       export MODE="createChannel"
+      shift
+  fi
+fi
+
+# parse a createChannel2 subcommand if used
+if [[ $# -ge 1 ]] ; then
+  key="$1"
+  if [[ "$key" == "createChannel2" ]]; then
+      export MODE="createChannel2"
       shift
   fi
 fi
@@ -402,11 +442,16 @@ if [ "$MODE" == "up" ]; then
 elif [ "$MODE" == "createChannel" ]; then
   infoln "Creating channel '${CHANNEL_NAME}'."
   infoln "If network is not up, starting nodes with CLI timeout of '${MAX_RETRY}' tries and CLI delay of '${CLI_DELAY}' seconds and using database '${DATABASE} ${CRYPTO_MODE}"
+elif [ "$MODE" == "createChannel2" ]; then
+  infoln "Creating channel '${CHANNEL_NAME}'."
+  infoln "If network is not up, starting nodes with CLI timeout of '${MAX_RETRY}' tries and CLI delay of '${CLI_DELAY}' seconds and using database '${DATABASE} ${CRYPTO_MODE}"
 elif [ "$MODE" == "down" ]; then
   infoln "Stopping network"
 elif [ "$MODE" == "restart" ]; then
   infoln "Restarting network"
 elif [ "$MODE" == "deployCC" ]; then
+  infoln "deploying chaincode on channel '${CHANNEL_NAME}'"
+elif [ "$MODE" == "deployCC2" ]; then
   infoln "deploying chaincode on channel '${CHANNEL_NAME}'"
 else
   printHelp
@@ -417,8 +462,12 @@ if [ "${MODE}" == "up" ]; then
   networkUp
 elif [ "${MODE}" == "createChannel" ]; then
   createChannel
+elif [ "${MODE}" == "createChannel2" ]; then
+  createChannel2
 elif [ "${MODE}" == "deployCC" ]; then
   deployCC
+elif [ "${MODE}" == "deployCC2" ]; then
+  deployCC2
 elif [ "${MODE}" == "down" ]; then
   networkDown
 # else

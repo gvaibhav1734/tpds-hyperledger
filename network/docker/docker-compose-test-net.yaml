@@ -5,7 +5,11 @@ volumes:
   peer0.centralgovernment.example.com:
   peer0.stategovernmentdepot.example.com:
   peer0.statelevelfps.example.com:
-  peer0.other.example.com:
+  peer0.other.example.com: 
+  peer1.centralgovernment.example.com:
+  peer1.stategovernmentdepot.example.com:
+  peer1.statelevelfps.example.com:
+  peer1.other.example.com:
 
 networks:
   test:
@@ -41,7 +45,7 @@ services:
       - ORDERER_ADMIN_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
       - ORDERER_ADMIN_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
       - ORDERER_ADMIN_TLS_CLIENTROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
-      - ORDERER_ADMIN_LISTENADDRESS=0.0.0.0:7053
+      - ORDERER_ADMIN_LISTENADDRESS=0.0.0.0:8050
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: orderer
     volumes:
@@ -51,7 +55,7 @@ services:
         - orderer.example.com:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
-      - 7053:7053
+      - 8050:8050
     networks:
       - test
 
@@ -202,7 +206,155 @@ services:
       - 10051:10051
     networks:
       - test
+ 
+  peer1.centralgovernment.example.com:
+        container_name: peer1.centralgovernment.example.com
+        image: hyperledger/fabric-peer:latest
+        labels:
+          service: hyperledger-fabric
+        environment:
+          #Generic peer variables
+          - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+          - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_test
+          - FABRIC_LOGGING_SPEC=INFO
+          #- FABRIC_LOGGING_SPEC=DEBUG
+          - CORE_PEER_TLS_ENABLED=true
+          - CORE_PEER_PROFILE_ENABLED=true
+          - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+          - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+          - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+          # Peer specific variabes
+          - CORE_PEER_ID=peer1.orcentralgovernmentg1.example.com
+          - CORE_PEER_ADDRESS=peer1.centralgovernment.example.com:7053
+          - CORE_PEER_LISTENADDRESS=0.0.0.0:7053
+          - CORE_PEER_CHAINCODEADDRESS=peer1.centralgovernment.example.com:7055
+          - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7055
+          - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.centralgovernment.example.com:7053
+          - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.centralgovernment.example.com:7053
+          - CORE_PEER_LOCALMSPID=centralgovernmentMSP
+        volumes:
+            - /var/run/docker.sock:/host/var/run/docker.sock
+            - ../organizations/peerOrganizations/centralgovernment.example.com/peers/peer1.centralgovernment.example.com/msp:/etc/hyperledger/fabric/msp
+            - ../organizations/peerOrganizations/centralgovernment.example.com/peers/peer1.centralgovernment.example.com/tls:/etc/hyperledger/fabric/tls
+            - peer1.centralgovernment.example.com:/var/hyperledger/production
+        working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+        command: peer node start
+        ports:
+          - 7053:7053
+        networks:
+          - test      
+
+  peer1.stategovernmentdepot.example.com:
+    container_name: peer1.stategovernmentdepot.example.com
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_test
+      - FABRIC_LOGGING_SPEC=INFO
+      #- FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      # Peer specific variabes
+      - CORE_PEER_ID=peer1.stategovernmentdepot.example.com
+      - CORE_PEER_ADDRESS=peer1.stategovernmentdepot.example.com:8053
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:8053
+      - CORE_PEER_CHAINCODEADDRESS=peer1.stategovernmentdepot.example.com:8055
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8055
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.stategovernmentdepot.example.com:8053
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.stategovernmentdepot.example.com:8053
+      - CORE_PEER_LOCALMSPID=stategovernmentdepotMSP
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer1.stategovernmentdepot.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/stategovernmentdepot.example.com/peers/peer1.stategovernmentdepot.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.stategovernmentdepot.example.com:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 8053:8053
+    networks:
+      - test
   
+  peer1.statelevelfps.example.com:
+    container_name: peer1.statelevelfps.example.com
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_test
+      - FABRIC_LOGGING_SPEC=INFO
+      #- FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      # Peer specific variabes
+      - CORE_PEER_ID=peer1.statelevelfps.example.com
+      - CORE_PEER_ADDRESS=peer1.statelevelfps.example.com:9053
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9053
+      - CORE_PEER_CHAINCODEADDRESS=peer1.statelevelfps.example.com:9055
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9055
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.statelevelfps.example.com:9053
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.statelevelfps.example.com:9053
+      - CORE_PEER_LOCALMSPID=statelevelfpsMSP
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/statelevelfps.example.com/peers/peer1.statelevelfps.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/statelevelfps.example.com/peers/peer1.statelevelfps.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.statelevelfps.example.com:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 9053:9053
+    networks:
+      - test
+
+  peer1.other.example.com:
+    container_name: peer1.other.example.com
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=fabric_test
+      - FABRIC_LOGGING_SPEC=INFO
+      #- FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      # Peer specific variabes
+      - CORE_PEER_ID=peer1.other.example.com
+      - CORE_PEER_ADDRESS=peer1.other.example.com:10053
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10053
+      - CORE_PEER_CHAINCODEADDRESS=peer1.other.example.com:10055
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10055
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.other.example.com:10053
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.other.example.com:10053
+      - CORE_PEER_LOCALMSPID=otherMSP
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/other.example.com/peers/peer1.other.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/other.example.com/peers/peer1.other.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.other.example.com:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 10053:10053
+    networks:
+      - test
+
   cli:
     container_name: cli
     image: hyperledger/fabric-tools:latest
