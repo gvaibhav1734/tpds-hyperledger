@@ -4,7 +4,7 @@ TPDS Supply chain proof of concept in Hyperledger Fabric. Network with four orgs
 # Installation instructions
 
 1. Install Hyperledger fabric dependencies:
-https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html
+https://hyperledger-fabric.readthedocs.io/en/release-2.2/prereqs.html
 
 2. Donwload fabric binaries and samples:
 `curl -sSL http://bit.ly/2ysbOFE | bash -s`
@@ -23,7 +23,11 @@ https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html
 7. Start the network
 `./start.sh`
 
+## Note
 
+The following paths have been hardcoded and must be changed as needed:
+ - Paths in application/AppUtil.js : Replace the ccpPath in all buildCCP functions with absolute path in your system.
+ - Paths in all application/tpds-app/pages/api/* js files : Replace wallet paths in all files with absolute path in your system.
 
 # Generate identities
 1. Go to application folder (from the tpds-hyperledger folder)
@@ -32,7 +36,10 @@ https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html
 2. Run createIdentities.js
 `node createIdentities.js`
 
-3. If you stop and restart the fabric network, you will need to regenerate the identities. Delete existing wallet folders, change user names under all orgs and run the file according to step 2
+3. Run createIdentities2.js
+`node createIdentities2.js`
+
+4. If you stop and restart the fabric network, you will need to regenerate the identities. Delete existing wallet folders, change user names under all orgs and run the file according to step 2 and 3
 
 
 # Test the chaincode
@@ -44,17 +51,6 @@ https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html
 3. Run test file
 `node testApp.js`
 
-# Run App
-1. Go to application folder (from the tpds-hyperledger folder)
-`cd application`
-
-2. If you modified the name of user identity generated above, correspondingly modify the user name in the server.js file.
-
-3. `cd tpds-app`
-
-3. Run app
-`npm run dev`
-
 # Stop the network
 1. Go to network folder (from the tpds-hyperledger folder)
 `cd network`
@@ -62,8 +58,19 @@ https://hyperledger-fabric.readthedocs.io/en/release-1.4/prereqs.html
 2. Stop the network
 `./network.sh down`
 
-
 # API Doc
+
+## Run API server
+1. Go to application folder (from the tpds-hyperledger folder)
+`cd application`
+
+2. If you modified the name of user identity generated above, correspondingly modify the user names in the server.js file.
+
+3. Run server:
+`node server.js`
+
+4. List of APIs and how to run them using CURL mentioned below:
+
 **createAsset**
 ----
   Add new food grain asset to the blockchain network (owner must always be "Central Government")
@@ -305,9 +312,11 @@ curl --request GET --url 'http://localhost:3000/tpds/getAllAssets' --header 'con
 curl --request GET --url 'http://localhost:3000/tpds/checkLeakage' --header 'content-type: application/json'
 ```
 
+# Run App
+1. Go to application folder (from the tpds-hyperledger folder)
+`cd application`
 
-## Note
+2. `cd tpds-app`
 
-The following paths have been hardcoded and must be changed as needed:
- - Paths in application/AppUtil.js 
- - Paths in all application/tpds-app/pages/api/* js files
+3. Run app
+`npm run dev`
